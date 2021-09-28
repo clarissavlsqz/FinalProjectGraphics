@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>WebGL Canvas</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./webgl.css" type="text/css">
+  </head>
+
+<!-- Preparar el renderizado en 3D-->
+  <body>
+    <canvas id="glcanvas" width="1000" height="630">
+    </canvas>
+  </body>
+
+  <script>
+    main();
+
+    function main() {
+      const canvas = document.getElementById("glcanvas");
+      // Inicializar el contexto GL
+      const gl = canvas.getContext('webgl');
+
+      // Solo si se tiene WebGL disponible se continua
+      if (!gl) {
+        alert('No se pudo inicializar WebGL. Tu maquina o navegador no lo soporta.');
+        return;
+      }
+
+      gl.clearColor(0.83, 0.51, 0.44, 1.0); // Establecer un el color base
+      gl.enable(gl.DEPTH_TEST);             // Habilitar prueba de profundidad
+      gl.depthFunc(gl.LEQUEAL);             // Objetos cercanos opacan objetos lejanos
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Limpiar el buffer de color asi como la profundidad
+    }
+  </script>
+</html>
