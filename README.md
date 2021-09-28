@@ -1,8 +1,8 @@
 # **Proyecto Final Gráficas Computacionales**
 
 ##### Miembros:
-Carolina Medina Medrano
-Clarissa Andrea Velásquez Magaña
+Carolina Medina Medrano\
+Clarissa Andrea Velásquez Magaña A01281743\
 Gabriel Gomez Novau
 
 ## Descripción de la escena
