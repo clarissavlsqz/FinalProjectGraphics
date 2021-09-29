@@ -26,3 +26,7 @@ A continuación vamos a detallar las características que queremos implementar p
 - El agua del oceano se tiene que mover
 - Debe de haber un monito con el cual el usuario pueda interactuar
 
+## Liberías
+Después de haber hecho una breve investigación decidimos que las siguientes librerías son candidatas a usarse:
+- Three.js
+- Clay.gl
