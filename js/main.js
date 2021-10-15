@@ -5,7 +5,7 @@ function init() {
     scene = new THREE.Scene();
 
     // Create camera
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.01, 1000);
 
     // Create render var
     renderer = new THREE.WebGLRenderer({antialias: true});
@@ -24,14 +24,22 @@ function init() {
     //scene.add(cube);
 
     //Plane grass
-    const geometry = new THREE.PlaneGeometry(15, 10);
+    const geometryPlane = new THREE.PlaneGeometry(15, 10);
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
-    const material = new THREE.MeshBasicMaterial( {color: 0x228B22} )
-    const floor = new THREE.Mesh( geometry, material );
+    const materialPlane = new THREE.MeshBasicMaterial( {color: 0x228B22} )
+    const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
 	floor.rotation.x = 90;
 	scene.add( floor ); 
+
+    // Camping tent
+    const geometryTent = new THREE.CylinderGeometry(0, 4, 5, 4, 1)
+    const materialTent = new THREE.MeshNormalMaterial();
+    const pyramid = new THREE.Mesh(geometryTent, materialTent);
+    pyramid.position.x += 3;
+    pyramid.position.y += 2.5;
+    scene.add(pyramid);
 
 
     camera.position.z = 10;
