@@ -28,7 +28,7 @@ function init() {
     });
 
 
-    // Green cube
+    // Plane beach
     const geometryBeach = new THREE.PlaneBufferGeometry(15,20);
     geometryBeach.rotateX(4.7);
     const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
@@ -39,7 +39,7 @@ function init() {
     beach.position.y -= 0.5;
     scene.add(beach);
 
-    //Plane grass
+    // Cube grass
     const geometryPlane = new THREE.BoxGeometry(15,20);
     geometryPlane.rotateX(4.7);
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
