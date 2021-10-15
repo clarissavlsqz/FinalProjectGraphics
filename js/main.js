@@ -29,15 +29,18 @@ function init() {
 
 
     // Green cube
-    //const geometry = new THREE.BoxGeometry();
-    //const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const geometryBeach = new THREE.PlaneBufferGeometry(15,20);
+    geometryBeach.rotateX(4.7);
+    const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
-    //cube = new THREE.Mesh( geometry, material );
-    //scene.add(cube);
+    const beach = new THREE.Mesh( geometryBeach, materialBeach );
+    beach.position.x += 15;
+    beach.position.y -= 0.5;
+    scene.add(beach);
 
     //Plane grass
-    const geometryPlane = new THREE.PlaneBufferGeometry(15,20);
+    const geometryPlane = new THREE.BoxGeometry(15,20);
     geometryPlane.rotateX(4.7);
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
@@ -54,7 +57,17 @@ function init() {
     pyramid.position.y += 2.6;
     scene.add(pyramid);
 
+    // Character
+    // Head
+    const geometryHead = new THREE.SphereGeometry( 1, 32, 16 );
+    const materialHead = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    const head = new THREE.Mesh( geometryHead, materialHead );
+    head.position.y = 3;
+    head.position.x = -3;
+    scene.add( head );    
 
+    // Body
+ 
     
 }
 
