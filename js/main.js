@@ -1,4 +1,28 @@
-let scene, camera, renderer, cube;
+let scene, camera, renderer, cube, skyBox;
+let baseImageName = "Daylight Box";
+
+function createPathStrings(filename) {
+    const basePath = "textures/";
+    const baseFile = basePath + filename;
+    const fileType = ".jpg";
+    const sides = ["Back", "Front", "Top", "Bottom", "Right", "Left"];
+    const pathStrings = sides.map(side => {
+        return baseFile + "_" + side + fileType;
+    });
+
+    return pathStrings;
+
+} 
+
+function createMaterialArray(filename) {
+    const daylightBoxPaths = createPathStrings(filename);
+    const materialArray = daylightBoxPaths.map(image => {
+        let texture = new THREE.TextureLoader().load(image);
+        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+    });
+
+    return materialArray;
+}
 
 function init() {
     // Create scene
@@ -8,10 +32,10 @@ function init() {
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 2000);
     camera.position.set(10,20,10);
 
-    // Create render var
+    // Create render
     renderer = new THREE.WebGLRenderer({antialias: true});
 
-    // Create controls var for camera movement
+    // Create controls for camera movement
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.update();
 
@@ -26,6 +50,14 @@ function init() {
         camera.aspect = width/height;
         camera.updateProjectionMatrix;
     });
+
+    // SkyDome
+    var skyBoxGeo = new THREE.BoxGeometry(50, 50, 50);
+    skyBox = new THREE.Mesh(skyBoxGeo);
+    const materialArray = createMaterialArray(baseImageName);
+    skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
+
+    scene.add(skyBox);
 
 
     // Plane beach
@@ -149,8 +181,8 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    //cube.rotation.x += 0.01
-    //cube.rotation.y += 0.01
+   // skyBox.rotation.x += 0.005;
+    //skyBox.rotation.y += 0.005;
     renderer.render(scene, camera);
     controls.update();
 }
