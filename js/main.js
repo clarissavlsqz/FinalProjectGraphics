@@ -89,6 +89,78 @@ function init() {
     pyramid.position.y += 2.6;
     scene.add(pyramid);
 
+    // Trunk
+    const geometry = new THREE.CylinderGeometry( 1, 1, 3, 32 );
+    const material = new THREE.MeshBasicMaterial( {color: 0x492000} );
+    const cylinder = new THREE.Mesh( geometry, material );
+    cylinder.position.x += 3;
+    cylinder.position.y += 1.45;
+    cylinder.position.z += -6.65;
+    scene.add( cylinder );
+
+    // Leafs Left
+    const sLGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sLMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const lEsfera = new THREE.Mesh( sLGeometry, sLMaterial );
+    lEsfera.position.x += 3;
+    lEsfera.position.y += 4.5;
+    lEsfera.position.z += -8;
+    scene.add( lEsfera );
+
+    // Leafs Mid
+    const sMGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sMMaterial = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
+    const mEsfera = new THREE.Mesh( sMGeometry, sMMaterial );
+    mEsfera.position.x += 3;
+    mEsfera.position.y += 5;
+    mEsfera.position.z += -7;
+    scene.add( mEsfera );
+
+    // Leafs Right
+    const sRGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sRMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const rEsfera = new THREE.Mesh( sRGeometry, sRMaterial );
+    rEsfera.position.x += 3;
+    rEsfera.position.y += 4.5;
+    rEsfera.position.z += -5;
+    scene.add( rEsfera );
+
+    // Trunk2
+    const geometry2 = new THREE.CylinderGeometry( 1, 1, 3, 32 );
+    const material2 = new THREE.MeshBasicMaterial( {color: 0x492000} );
+    const cylinder2 = new THREE.Mesh( geometry2, material2 );
+    cylinder2.position.x += 3;
+    cylinder2.position.y += 1.45;
+    cylinder2.position.z += 7;
+    scene.add( cylinder2 );
+
+    // Leafs Left2
+    const sLGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sLMaterial2 = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const lEsfera2 = new THREE.Mesh( sLGeometry2, sLMaterial2 );
+    lEsfera2.position.x += 3;
+    lEsfera2.position.y += 4.5;
+    lEsfera2.position.z += 5.65;
+    scene.add( lEsfera2 );
+
+    // Leafs Mid2
+    const sMGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sMMaterial2 = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
+    const mEsfera2 = new THREE.Mesh( sMGeometry2, sMMaterial2 );
+    mEsfera2.position.x += 3;
+    mEsfera2.position.y += 5;
+    mEsfera2.position.z += 6.65;
+    scene.add( mEsfera2 );
+
+    // Leafs Right2
+    const sRGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sRMaterial2 = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const rEsfera2 = new THREE.Mesh( sRGeometry2, sRMaterial2 );
+    rEsfera2.position.x += 3;
+    rEsfera2.position.y += 4.5;
+    rEsfera2.position.z += 8.65;
+    scene.add( rEsfera2 );
+
     // Character
     // Head
     const geometryHead = new THREE.SphereGeometry( 1, 32, 16 );
