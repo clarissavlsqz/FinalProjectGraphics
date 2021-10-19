@@ -52,7 +52,7 @@ function init() {
     });
 
     // SkyDome
-    var skyBoxGeo = new THREE.BoxGeometry(50, 50, 50);
+    var skyBoxGeo = new THREE.BoxGeometry(200, 200, 200);
     skyBox = new THREE.Mesh(skyBoxGeo);
     const materialArray = createMaterialArray(baseImageName);
     skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
@@ -61,18 +61,18 @@ function init() {
 
 
     // Plane beach
-    const geometryBeach = new THREE.PlaneBufferGeometry(15,20);
+    const geometryBeach = new THREE.PlaneBufferGeometry(115,120);
     geometryBeach.rotateX(4.7);
     const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
     const beach = new THREE.Mesh( geometryBeach, materialBeach );
-    beach.position.x += 15;
-    beach.position.y -= 0.5;
+    //beach.position.x += 15;
+    //beach.position.y -= 0.5;
     scene.add(beach);
 
     // Cube grass
-    const geometryPlane = new THREE.BoxGeometry(15,20);
+    const geometryPlane = new THREE.BoxGeometry(105,110);
     geometryPlane.rotateX(4.7);
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
