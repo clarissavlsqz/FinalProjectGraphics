@@ -89,6 +89,121 @@ function init() {
     pyramid.position.y += 2.6;
     scene.add(pyramid);
 
+    //Body Front = BF
+    const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
+    const materialBF = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cylinderBF = new THREE.Mesh( geometryBF, materialBF );
+    cylinderBF.position.x += -65;
+    cylinderBF.position.y += 5;
+    cylinderBF.position.z += 20;
+    cylinderBF.rotateZ(Math.PI / 2);
+    cylinderBF.rotateX(Math.PI / 2);
+    scene.add( cylinderBF );
+
+    //Body Head = BH
+    const geometryBH = new THREE.SphereGeometry( 1, 32, 16 );
+    const materialBH = new THREE.MeshBasicMaterial( { color: 0x757c88 } );
+    const headPlane = new THREE.Mesh( geometryBH, materialBH );
+    headPlane.position.x = cylinderBF.position.x;
+    headPlane.position.y = cylinderBF.position.y;
+    headPlane.position.z = cylinderBF.position.z-2;
+    scene.add( headPlane ); 
+
+    //Body Head Ace 1= BHA1
+    const geometryBHA1 = new THREE.BoxGeometry( 6, 0.8, 0.1); 
+    const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialBHA1 );
+    cubeBHA1.position.x = headPlane.position.x;
+    cubeBHA1.position.y = headPlane.position.y;
+    cubeBHA1.position.z = headPlane.position.z;
+    scene.add( cubeBHA1 );
+
+    //Body Head Ace 2= BHA2
+    const geometryBHA2 = new THREE.BoxGeometry( 0.8, 6, 0.1); 
+    const materialBHA2 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialBHA2 );
+    cubeBHA2.position.x = headPlane.position.x;
+    cubeBHA2.position.y = headPlane.position.y;
+    cubeBHA2.position.z = headPlane.position.z;
+    scene.add( cubeBHA2 );
+
+    //Body plane = BP
+    const geometryBP = new THREE.CylinderGeometry( 3, 3, 7, 32 );
+    const materialBP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cylinderBP = new THREE.Mesh( geometryBP, materialBP );
+    cylinderBP.position.x = cylinderBF.position.x;
+    cylinderBP.position.y = cylinderBF.position.y;
+    cylinderBP.position.z = cylinderBF.position.z + 5;
+    cylinderBP.rotateZ(Math.PI / 2);
+    cylinderBP.rotateX(Math.PI / 2);
+    scene.add( cylinderBP );
+
+    //Tail Main Plane = TMP
+    //Tail Main Plane = TMP
+    const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
+    const materialTMP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const cubeTMP = new THREE.Mesh( geometryTMP, materialTMP );
+    cubeTMP.position.x = cylinderBF.position.x;
+    cubeTMP.position.y += cylinderBF.position.y + 2;
+    cubeTMP.position.z += cylinderBF.position.z + 8.5;
+    scene.add( cubeTMP );
+
+    //Tail Side Plane = TSP
+    const geometryTSP = new THREE.BoxGeometry( 7, 0.1, 3 ); 
+    const materialTSP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const cubeTSP = new THREE.Mesh( geometryTSP, materialTSP );
+    cubeTSP.position.x = cubeTMP.position.x;
+    cubeTSP.position.y = cubeTMP.position.y - 3;
+    cubeTSP.position.z = cubeTMP.position.z;
+    scene.add( cubeTSP );
+
+    //Wing Plane = WP
+    const geometryWP = new THREE.BoxGeometry( 10, 0.1, 3 ); 
+    const materialWP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const cubeWP = new THREE.Mesh( geometryWP, materialWP );
+    cubeWP.position.x = cylinderBF.position.x;
+    cubeWP.position.y = cylinderBF.position.y + 1;
+    cubeWP.position.z = cylinderBF.position.z + 5;
+    scene.add( cubeWP );
+
+    //Right Foot Plane = RFP
+    const geometryRFP = new THREE.BoxGeometry( 2, 1, 10 ); 
+    const materialRFP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeRFP= new THREE.Mesh( geometryRFP, materialRFP );
+    cubeRFP.position.x = cylinderBF.position.x + 2;
+    cubeRFP.position.y = cylinderBF.position.y - 4;
+    cubeRFP.position.z = cylinderBF.position.z + 5;
+    scene.add( cubeRFP );
+
+    //Right Foot Tube Plane = RFTP
+    const geometryRFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
+    const materialRFTP = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const CubeRFTP = new THREE.Mesh(geometryRFTP, materialRFTP);
+    CubeRFTP.position.y = cubeRFP.position.y + 1;
+    CubeRFTP.position.x = cubeRFP.position.x;
+    CubeRFTP.position.z = cubeRFP.position.z;
+    CubeRFTP.rotateZ(Math.PI / 4);
+    scene.add(CubeRFTP);
+
+    //Left Foot Plane = LFP
+    const geometryLFP = new THREE.BoxGeometry( 2, 1, 10 ); 
+    const materialLFP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeLFP = new THREE.Mesh( geometryLFP, materialLFP );
+    cubeLFP.position.x = cylinderBF.position.x - 2;
+    cubeLFP.position.y = cylinderBF.position.y - 4;
+    cubeLFP.position.z = cylinderBF.position.z + 5;
+    scene.add( cubeLFP );
+
+    //Left Foot Tube Plane = LFTP
+    const geometryLFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
+    const materialLFTP = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const CubeLFTP = new THREE.Mesh(geometryLFTP, materialLFTP);
+    CubeLFTP.position.y = cubeLFP.position.y + 1;
+    CubeLFTP.position.x = cubeLFP.position.x;
+    CubeLFTP.position.z = cubeLFP.position.z;
+    CubeLFTP.rotateZ(3 * Math.PI / 4);
+    scene.add(CubeLFTP);
+
     // Trunk
     const geometry = new THREE.CylinderGeometry( 1, 1, 3, 32 );
     const material = new THREE.MeshBasicMaterial( {color: 0x492000} );
