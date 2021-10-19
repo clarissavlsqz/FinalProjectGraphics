@@ -246,6 +246,38 @@ function init() {
     leftFoot.position.x = leftLeg.position.x;
     leftFoot.position.z = leftLeg.position.z + 0.25;
     scene.add(leftFoot);
+
+    // GiftBox
+    const giftBoxGeo = new THREE.BoxGeometry();
+    const materialGiftBox = new THREE.MeshBasicMaterial({ color: 0xFFB6C1});
+    const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
+    giftBox.position.y += 10;
+	scene.add(giftBox);
+
+    // Line between box and balloon
+    const materialLine = new THREE.LineBasicMaterial({
+        color: 0x0000ff,
+        linewidth: 10,
+    });
+    
+    const points = [];
+    points.push( new THREE.Vector2(0, 10.5));
+    points.push( new THREE.Vector2(0, 12));
+   // points.push( new THREE.Vector3( 1, 10.5, 16 ) );
+    const geometryLine = new THREE.BufferGeometry().setFromPoints(points);
+    
+    const line = new THREE.Line( geometryLine, materialLine );
+    
+    scene.add( line );
+
+
+    // Balloon
+    const geometryBalloon = new THREE.SphereGeometry(0.7, 32, 16);
+    const materialBalloon = new THREE.MeshBasicMaterial( { color: 0xff0000} );
+    const balloon = new THREE.Mesh(geometryBalloon, materialBalloon);
+    balloon.position.y += 12; 
+    balloon.position.x = 0;
+    scene.add( balloon );
     
 }
 
