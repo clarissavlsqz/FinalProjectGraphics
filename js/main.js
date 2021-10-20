@@ -56,12 +56,81 @@ function init() {
     skyBox = new THREE.Mesh(skyBoxGeo);
     const materialArray = createMaterialArray(baseImageName);
     skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
-
     scene.add(skyBox);
 
+    // Clouds
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 20 + (Math.random() * 9);
+        cloud.position.y += 40 + (Math.random() * 2); 
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(25 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 50 + ( Math.random() * 4);
+        cloud.position.y += 35 + (Math.random() * 2); 
+        cloud.position.z = -30;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += -30 + (2 *  Math.random() * 5);
+        cloud.position.y += 55 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 20;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(35 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += -15 + (2 *  Math.random() * 5);
+        cloud.position.y += 25 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 10;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 30; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x -= 40 + (2 *  Math.random() * 5);
+        cloud.position.y += 30 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 40;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        const cloudGeo = new THREE.SphereGeometry(50 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x -= 50 + (2 *  Math.random() * 5);
+        cloud.position.y += 30 + (2* Math.random() * 2.5); 
+        cloud.position.z -= 40;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 10 + (2 *  Math.random() * 5);
+        cloud.position.y += 20 + (2 * Math.random() * 2.5); 
+        cloud.position.z -= 30;
+        scene.add(cloud);
+    }
+    
 
     // Plane beach
-    const geometryBeach = new THREE.PlaneBufferGeometry(115,120);
+    const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
     geometryBeach.rotateX(4.7);
     const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
@@ -83,7 +152,7 @@ function init() {
 	scene.add(floor); 
 
     // River
-    const geometryRiver = new THREE.BoxGeometry(9,120);
+    const geometryRiver = new THREE.BoxGeometry(9,130);
     geometryRiver.rotateX(4.7);
     const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
     const river = new THREE.Mesh( geometryRiver, materialRiver);
@@ -100,11 +169,12 @@ function init() {
     scene.add(floor2);
 
     // Camping tent
-    const geometryTent = new THREE.CylinderGeometry(0, 4, 5, 4, 1)
+    const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0)
     const materialTent = new THREE.MeshNormalMaterial();
     const pyramid = new THREE.Mesh(geometryTent, materialTent);
-    pyramid.position.x += 3;
-    pyramid.position.y += 2.6;
+    pyramid.position.x -= 15;
+    pyramid.position.z -= 30;
+    pyramid.position.y += 5.5;
     scene.add(pyramid);
 
 
@@ -314,76 +384,124 @@ function init() {
     scene.add(CubeLFTP);
 
     // Trunk
-    const geometry = new THREE.CylinderGeometry( 1, 1, 3, 32 );
-    const material = new THREE.MeshBasicMaterial( {color: 0x492000} );
-    const cylinder = new THREE.Mesh( geometry, material );
-    cylinder.position.x += 3;
-    cylinder.position.y += 1.45;
-    cylinder.position.z += -6.65;
-    scene.add( cylinder );
+    const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
+    const trunkMaterial = new THREE.MeshBasicMaterial( {color: 0x492000} );
+    const trunkCylinder = new THREE.Mesh( trunkGeometry, trunkMaterial );
+    trunkCylinder.position.x += 3;
+    trunkCylinder.position.y += 4.5;
+    trunkCylinder.position.z += -6.65;
+    scene.add( trunkCylinder );
 
     // Leafs Left
-    const sLGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sLGeometry = new THREE.SphereGeometry( 3, 32, 16 );
     const sLMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
     const lEsfera = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera.position.x += 3;
-    lEsfera.position.y += 4.5;
+    lEsfera.position.y += 8;
     lEsfera.position.z += -8;
     scene.add( lEsfera );
 
     // Leafs Mid
-    const sMGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sMGeometry = new THREE.SphereGeometry( 3, 32, 16 );
     const sMMaterial = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
     const mEsfera = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera.position.x += 3;
-    mEsfera.position.y += 5;
+    mEsfera.position.y += 8.5;
     mEsfera.position.z += -7;
     scene.add( mEsfera );
 
     // Leafs Right
-    const sRGeometry = new THREE.SphereGeometry( 2.5, 32, 16 );
+    const sRGeometry = new THREE.SphereGeometry( 3, 32, 16 );
     const sRMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
     const rEsfera = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera.position.x += 3;
-    rEsfera.position.y += 4.5;
+    rEsfera.position.y += 8;
     rEsfera.position.z += -5;
     scene.add( rEsfera );
 
     // Trunk2
-    const geometry2 = new THREE.CylinderGeometry( 1, 1, 3, 32 );
-    const material2 = new THREE.MeshBasicMaterial( {color: 0x492000} );
-    const cylinder2 = new THREE.Mesh( geometry2, material2 );
-    cylinder2.position.x += 3;
-    cylinder2.position.y += 1.45;
-    cylinder2.position.z += 7;
-    scene.add( cylinder2 );
+    const trunkCylinder2 = new THREE.Mesh( trunkGeometry, trunkMaterial );
+    trunkCylinder2.position.x += 3;
+    trunkCylinder2.position.y += 4.5;
+    trunkCylinder2.position.z += 7;
+    scene.add( trunkCylinder2 );
 
     // Leafs Left2
-    const sLGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
-    const sLMaterial2 = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
-    const lEsfera2 = new THREE.Mesh( sLGeometry2, sLMaterial2 );
+    const lEsfera2 = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera2.position.x += 3;
-    lEsfera2.position.y += 4.5;
+    lEsfera2.position.y += 8;
     lEsfera2.position.z += 5.65;
     scene.add( lEsfera2 );
 
     // Leafs Mid2
-    const sMGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
-    const sMMaterial2 = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
-    const mEsfera2 = new THREE.Mesh( sMGeometry2, sMMaterial2 );
+    const mEsfera2 = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera2.position.x += 3;
-    mEsfera2.position.y += 5;
+    mEsfera2.position.y += 8.5;
     mEsfera2.position.z += 6.65;
     scene.add( mEsfera2 );
 
     // Leafs Right2
-    const sRGeometry2 = new THREE.SphereGeometry( 2.5, 32, 16 );
-    const sRMaterial2 = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
-    const rEsfera2 = new THREE.Mesh( sRGeometry2, sRMaterial2 );
+    const rEsfera2 = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera2.position.x += 3;
-    rEsfera2.position.y += 4.5;
+    rEsfera2.position.y += 8;
     rEsfera2.position.z += 8.65;
     scene.add( rEsfera2 );
+
+    // Trunk3
+    const trunkCylinder3 = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunkCylinder3.position.x += 24;
+    trunkCylinder3.position.y += 4.5;
+    trunkCylinder3.position.z -= 25;
+    scene.add( trunkCylinder3 );
+
+    // Leafs Left3
+    const lEsfera3 = new THREE.Mesh(sLGeometry, sLMaterial);
+    lEsfera3.position.x += 24;
+    lEsfera3.position.y += 8.5;
+    lEsfera3.position.z -= 26.65;
+    scene.add( lEsfera3 );
+
+    // Leafs Mid3
+    const mEsfera3 = new THREE.Mesh( sMGeometry, sMMaterial);
+    mEsfera3.position.x += 24;
+    mEsfera3.position.y += 9;
+    mEsfera3.position.z -= 24.65;
+    scene.add( mEsfera3 );
+
+    // Leafs Right3
+    const rEsfera3 = new THREE.Mesh(sRGeometry, sRMaterial);
+    rEsfera3.position.x += 24;
+    rEsfera3.position.y += 8.5;
+    rEsfera3.position.z -= 23.65;
+    scene.add( rEsfera3 );
+
+    // Trunk4
+    const trunkCylinder4 = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunkCylinder4.position.x += 40;
+    trunkCylinder4.position.y += 4.5;
+    trunkCylinder4.position.z += 1;
+    scene.add( trunkCylinder4 );
+
+    // Leafs Left4
+    const lEsfera4 = new THREE.Mesh(sLGeometry, sLMaterial);
+    lEsfera4.position.x += 40;
+    lEsfera4.position.y += 8.5;
+    lEsfera4.position.z -= 0.65;
+    scene.add( lEsfera4 );
+
+    // Leafs Mid4
+    const mEsfera4 = new THREE.Mesh( sMGeometry, sMMaterial);
+    mEsfera4.position.x += 40;
+    mEsfera4.position.y += 9;
+    mEsfera4.position.z += 0.65;
+    scene.add( mEsfera4 );
+
+    // Leafs Right4
+    const rEsfera4 = new THREE.Mesh(sRGeometry, sRMaterial);
+    rEsfera4.position.x += 40;
+    rEsfera4.position.y += 8.5;
+    rEsfera4.position.z += 2.65;
+    scene.add( rEsfera4 );
 
     // Character
     // Head
