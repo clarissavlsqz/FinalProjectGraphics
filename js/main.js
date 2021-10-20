@@ -678,6 +678,74 @@ function init() {
     roof3.position.z = house.position.z;
     roof3.rotateY(Math.PI / 4);
     scene.add(roof3);
+
+    // Chimney 
+    const geometryChimney = new THREE.BoxGeometry(2,4,2);
+    const materialChimney = new THREE.MeshBasicMaterial( { color: 0x828282 } );
+    const chimney = new THREE.Mesh(geometryChimney, materialChimney);
+    chimney.position.x = house.position.x;
+    chimney.position.y = house.position.y + 9;
+    chimney.position.z = house.position.z + 3;
+    scene.add(chimney);
+
+    // Mailbox
+    const geometryStickMail = new THREE.BoxGeometry(0.5,3,0.5);
+    const materialMailbox = new THREE.MeshBasicMaterial( {color: 0x312113 });
+    const stickMail = new THREE.Mesh(geometryStickMail, materialMailbox);
+    stickMail.position.x = house.position.x - 9;
+    stickMail.position.y += 2.5;
+    stickMail.position.z = house.position.z - 3;
+    scene.add(stickMail);
+
+    // Box of mail
+    const geometryBoxmail = new THREE.BoxGeometry(2,2,2);
+    const mailBox = new THREE.Mesh(geometryBoxmail, materialMailbox);
+    mailBox.position.x = stickMail.position.x;
+    mailBox.position.y = stickMail.position.y + 1.5;
+    mailBox.position.z = stickMail.position.z;
+    scene.add(mailBox);
+
+    // Top of boxmail
+    const geometryTopBoxmail = new THREE.CylinderGeometry(0,1.3,1.3,4);
+    const topMail = new THREE.Mesh(geometryTopBoxmail, materialMailbox);
+    topMail.position.x = stickMail.position.x;
+    topMail.position.y = mailBox.position.y + 1.6;
+    topMail.position.z = stickMail.position.z;
+    topMail.rotateY(Math.PI / 4);
+    scene.add(topMail);
+
+    // Table 
+    const geometryTable = new THREE.CylinderGeometry(5,5,1,32);
+    const materialTable = new THREE.MeshBasicMaterial( { color: 0xc0c0c0 });
+    const table = new THREE.Mesh(geometryTable, materialTable);
+    table.position.x -= 2;
+    table.position.y = floor.position.y + 3;
+    table.position.z += 40;
+    scene.add(table)
+
+    // Table leg
+    const geometryLegTable = new THREE.CylinderGeometry(1,1,2.5,32);
+    const legTable = new THREE.Mesh(geometryLegTable, materialTable);
+    legTable.position.x = table.position.x;
+    legTable.position.y = floor.position.y + 1.5;
+    legTable.position.z = table.position.z;
+    scene.add(legTable);
+
+    // Chair 1 for table
+    const geometryChair = new THREE.CylinderGeometry(2,2,2,32);
+    const materialChair = new THREE.MeshBasicMaterial( { color: 0xa8a9ad });
+    const chair1 = new THREE.Mesh(geometryChair, materialChair);
+    chair1.position.x = table.position.x;
+    chair1.position.y = floor.position.y + 1.5;
+    chair1.position.z = table.position.z + 7.5;
+    scene.add(chair1);
+
+    // Chair 2 for table
+    const chair2 = new THREE.Mesh(geometryChair, materialChair);
+    chair2.position.x = table.position.x;
+    chair2.position.y = floor.position.y + 1.5;
+    chair2.position.z = table.position.z - 7.5;
+    scene.add(chair2);
     
 }
 
