@@ -89,6 +89,98 @@ function init() {
     pyramid.position.y += 2.6;
     scene.add(pyramid);
 
+
+    //Choza Dock Right = CDR
+    const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
+    const materialCDR = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
+    cubeCDR.position.x += -50;
+    cubeCDR.position.y += 5;
+    cubeCDR.position.z += 20;
+    scene.add( cubeCDR );
+
+    //Choza Dock  = CD
+    const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
+    const materialCD = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const cubeCD = new THREE.Mesh( geometryCD, materialCD );
+    cubeCD.position.x = cubeCDR.position.x;
+    cubeCD.position.y = cubeCDR.position.y - 4.5;
+    cubeCD.position.z = cubeCDR.position.z - 5 ;
+    scene.add( cubeCD );
+
+    //Choza Dock Up = CDU
+    const geometryCDU = new THREE.BoxGeometry( 10, 1, 10 ); 
+    const materialCDU = new THREE.MeshBasicMaterial( {color: 0xffdddd} );
+    const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
+    cubeCDU.position.x = cubeCDR.position.x;
+    cubeCDU.position.y = cubeCDR.position.y + 4.4;
+    cubeCDU.position.z = cubeCDR.position.z - 5 ;
+    scene.add( cubeCDU );
+
+    //Choza Dock Viewer = CDV
+    const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
+    const materialCDV = new THREE.MeshBasicMaterial( {color: 0x000000} );
+    const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
+    cubeCDV.position.x = cubeCDR.position.x -2;
+    cubeCDV.position.y = cubeCDR.position.y + 5;
+    cubeCDV.position.z = cubeCDR.position.z - 3.5;
+    scene.add( cubeCDV );
+
+    //Choza Dock Viewer Cylinder = CDVC
+    const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
+    const materialCDVC = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
+    cylinderCDVC.position.x = cubeCDR.position.x -2;
+    cylinderCDVC.position.y = cubeCDR.position.y + 6;
+    cylinderCDVC.position.z = cubeCDR.position.z - 3.5;
+    cylinderCDVC.rotateY(Math.PI / 4);
+    scene.add( cylinderCDVC );
+
+    //Choza Dock Left  = CDL
+    const geometryCDL = new THREE.BoxGeometry( 7, 10, 1 ); 
+    const materialCDL = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeCDL = new THREE.Mesh( geometryCDL, materialCDL );
+    cubeCDL.position.x = cubeCDR.position.x + 1.5;
+    cubeCDL.position.y = cubeCDR.position.y;
+    cubeCDL.position.z = cubeCDR.position.z - 10;
+    scene.add( cubeCDL );
+
+    //Choza Dock Back = CDB
+    const geometryCDB = new THREE.BoxGeometry( 1, 10, 10 ); 
+    const materialCDB = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeCDB = new THREE.Mesh( geometryCDB, materialCDB );
+    cubeCDB.position.x = cubeCDR.position.x + 4.5;
+    cubeCDB.position.y = cubeCDR.position.y;
+    cubeCDB.position.z = cubeCDR.position.z - 5;
+    scene.add( cubeCDB );
+
+    //Choza Dock Front = CDF
+    const geometryCDF = new THREE.BoxGeometry( 1, 10, 7 ); 
+    const materialCDF = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const cubeCDF = new THREE.Mesh( geometryCDF, materialCDF );
+    cubeCDF.position.x = cubeCDR.position.x - 5;
+    cubeCDF.position.y = cubeCDR.position.y;
+    cubeCDF.position.z = cubeCDR.position.z - 3;
+    scene.add( cubeCDF );
+
+    //Ventana Dock Front= VDF
+    const geometryVDF = new THREE.BoxGeometry( 1, 3, 2 ); 
+    const materialVDF = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const cubeVDF = new THREE.Mesh( geometryVDF, materialVDF );
+    cubeVDF.position.x = cubeCDR.position.x - 5.5;
+    cubeVDF.position.y = cubeCDR.position.y;
+    cubeVDF.position.z = cubeCDR.position.z - 3;
+    scene.add( cubeVDF );
+
+    //Ventana Dock Left= VDL
+    const geometryVDL = new THREE.BoxGeometry( 2, 3, 1 ); 
+    const materialVDL = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const cubeVDL = new THREE.Mesh( geometryVDL, materialVDL );
+    cubeVDL.position.x = cubeCDR.position.x;
+    cubeVDL.position.y = cubeCDR.position.y;
+    cubeVDL.position.z = cubeCDR.position.z - 10.5;
+    scene.add( cubeVDL );
+
     //Body Front = BF
     const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
     const materialBF = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
@@ -138,7 +230,6 @@ function init() {
     cylinderBP.rotateX(Math.PI / 2);
     scene.add( cylinderBP );
 
-    //Tail Main Plane = TMP
     //Tail Main Plane = TMP
     const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
     const materialTMP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
