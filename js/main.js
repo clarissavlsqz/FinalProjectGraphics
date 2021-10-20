@@ -61,7 +61,7 @@ function init() {
 
 
     // Plane beach
-    const geometryBeach = new THREE.PlaneBufferGeometry(115,120);
+    const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
     geometryBeach.rotateX(4.7);
     const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
@@ -83,7 +83,7 @@ function init() {
 	scene.add(floor); 
 
     // River
-    const geometryRiver = new THREE.BoxGeometry(9,120);
+    const geometryRiver = new THREE.BoxGeometry(9,130);
     geometryRiver.rotateX(4.7);
     const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
     const river = new THREE.Mesh( geometryRiver, materialRiver);
