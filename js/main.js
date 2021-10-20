@@ -56,9 +56,78 @@ function init() {
     skyBox = new THREE.Mesh(skyBoxGeo);
     const materialArray = createMaterialArray(baseImageName);
     skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
-
     scene.add(skyBox);
 
+    // Clouds
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 20 + (Math.random() * 9);
+        cloud.position.y += 40 + (Math.random() * 2); 
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(25 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 50 + ( Math.random() * 4);
+        cloud.position.y += 35 + (Math.random() * 2); 
+        cloud.position.z = -30;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += -30 + (2 *  Math.random() * 5);
+        cloud.position.y += 55 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 20;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(35 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += -15 + (2 *  Math.random() * 5);
+        cloud.position.y += 25 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 10;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 30; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x -= 40 + (2 *  Math.random() * 5);
+        cloud.position.y += 30 + (2 * Math.random() * 2.5); 
+        cloud.position.z = 40;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        const cloudGeo = new THREE.SphereGeometry(50 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x -= 50 + (2 *  Math.random() * 5);
+        cloud.position.y += 30 + (2* Math.random() * 2.5); 
+        cloud.position.z -= 40;
+        scene.add(cloud);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
+        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+        cloud.position.x += 10 + (2 *  Math.random() * 5);
+        cloud.position.y += 20 + (2 * Math.random() * 2.5); 
+        cloud.position.z -= 30;
+        scene.add(cloud);
+    }
+    
 
     // Plane beach
     const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
