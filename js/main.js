@@ -224,11 +224,11 @@ function init() {
     scene.add(CubeLFTP);
 
     // Trunk
-    const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 7, 32 );
+    const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
     const trunkMaterial = new THREE.MeshBasicMaterial( {color: 0x492000} );
     const trunkCylinder = new THREE.Mesh( trunkGeometry, trunkMaterial );
     trunkCylinder.position.x += 3;
-    trunkCylinder.position.y += 3.5;
+    trunkCylinder.position.y += 4.5;
     trunkCylinder.position.z += -6.65;
     scene.add( trunkCylinder );
 
@@ -237,7 +237,7 @@ function init() {
     const sLMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
     const lEsfera = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera.position.x += 3;
-    lEsfera.position.y += 6;
+    lEsfera.position.y += 8;
     lEsfera.position.z += -8;
     scene.add( lEsfera );
 
@@ -246,7 +246,7 @@ function init() {
     const sMMaterial = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
     const mEsfera = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera.position.x += 3;
-    mEsfera.position.y += 6.5;
+    mEsfera.position.y += 8.5;
     mEsfera.position.z += -7;
     scene.add( mEsfera );
 
@@ -255,37 +255,93 @@ function init() {
     const sRMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
     const rEsfera = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera.position.x += 3;
-    rEsfera.position.y += 6;
+    rEsfera.position.y += 8;
     rEsfera.position.z += -5;
     scene.add( rEsfera );
 
     // Trunk2
     const trunkCylinder2 = new THREE.Mesh( trunkGeometry, trunkMaterial );
     trunkCylinder2.position.x += 3;
-    trunkCylinder2.position.y += 3.5;
+    trunkCylinder2.position.y += 4.5;
     trunkCylinder2.position.z += 7;
     scene.add( trunkCylinder2 );
 
     // Leafs Left2
     const lEsfera2 = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera2.position.x += 3;
-    lEsfera2.position.y += 6;
+    lEsfera2.position.y += 8;
     lEsfera2.position.z += 5.65;
     scene.add( lEsfera2 );
 
     // Leafs Mid2
     const mEsfera2 = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera2.position.x += 3;
-    mEsfera2.position.y += 6.5;
+    mEsfera2.position.y += 8.5;
     mEsfera2.position.z += 6.65;
     scene.add( mEsfera2 );
 
     // Leafs Right2
     const rEsfera2 = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera2.position.x += 3;
-    rEsfera2.position.y += 6;
+    rEsfera2.position.y += 8;
     rEsfera2.position.z += 8.65;
     scene.add( rEsfera2 );
+
+    // Trunk3
+    const trunkCylinder3 = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunkCylinder3.position.x += 24;
+    trunkCylinder3.position.y += 4.5;
+    trunkCylinder3.position.z -= 25;
+    scene.add( trunkCylinder3 );
+
+    // Leafs Left3
+    const lEsfera3 = new THREE.Mesh(sLGeometry, sLMaterial);
+    lEsfera3.position.x += 24;
+    lEsfera3.position.y += 8.5;
+    lEsfera3.position.z -= 26.65;
+    scene.add( lEsfera3 );
+
+    // Leafs Mid3
+    const mEsfera3 = new THREE.Mesh( sMGeometry, sMMaterial);
+    mEsfera3.position.x += 24;
+    mEsfera3.position.y += 9;
+    mEsfera3.position.z -= 24.65;
+    scene.add( mEsfera3 );
+
+    // Leafs Right3
+    const rEsfera3 = new THREE.Mesh(sRGeometry, sRMaterial);
+    rEsfera3.position.x += 24;
+    rEsfera3.position.y += 8.5;
+    rEsfera3.position.z -= 23.65;
+    scene.add( rEsfera3 );
+
+    // Trunk4
+    const trunkCylinder4 = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunkCylinder4.position.x += 40;
+    trunkCylinder4.position.y += 4.5;
+    trunkCylinder4.position.z += 1;
+    scene.add( trunkCylinder4 );
+
+    // Leafs Left4
+    const lEsfera4 = new THREE.Mesh(sLGeometry, sLMaterial);
+    lEsfera4.position.x += 40;
+    lEsfera4.position.y += 8.5;
+    lEsfera4.position.z -= 0.65;
+    scene.add( lEsfera4 );
+
+    // Leafs Mid4
+    const mEsfera4 = new THREE.Mesh( sMGeometry, sMMaterial);
+    mEsfera4.position.x += 40;
+    mEsfera4.position.y += 9;
+    mEsfera4.position.z += 0.65;
+    scene.add( mEsfera4 );
+
+    // Leafs Right4
+    const rEsfera4 = new THREE.Mesh(sRGeometry, sRMaterial);
+    rEsfera4.position.x += 40;
+    rEsfera4.position.y += 8.5;
+    rEsfera4.position.z += 2.65;
+    scene.add( rEsfera4 );
 
     // Character
     // Head
