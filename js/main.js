@@ -71,15 +71,33 @@ function init() {
     //beach.position.y -= 0.5;
     scene.add(beach);
 
-    // Cube grass
-    const geometryPlane = new THREE.BoxGeometry(105,110);
+    // First Cube grass
+    const geometryPlane = new THREE.BoxGeometry(79,115);
     geometryPlane.rotateX(4.7);
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
     const materialPlane = new THREE.MeshBasicMaterial( {color: 0x228B22} )
     const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
+    floor.position.x = beach.position.x + 14;
 	scene.add(floor); 
+
+    // River
+    const geometryRiver = new THREE.BoxGeometry(9,120);
+    geometryRiver.rotateX(4.7);
+    const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
+    const river = new THREE.Mesh( geometryRiver, materialRiver);
+    river.material.side = THREE.DoubleSide;
+    river.position.x = floor.position.x - 44;
+    scene.add(river);
+
+    // Second Cube Grass
+    const geometryPlane2 = new THREE.BoxGeometry(20,115);
+    geometryPlane2.rotateX(4.7);
+    const floor2 = new THREE.Mesh(geometryPlane2, materialPlane);
+    floor2.material.side = THREE.DoubleSide;
+    floor2.position.x = river.position.x - 14.5;
+    scene.add(floor2);
 
     // Camping tent
     const geometryTent = new THREE.CylinderGeometry(0, 4, 5, 4, 1)
@@ -393,6 +411,42 @@ function init() {
     balloon.position.y += 12; 
     balloon.position.x = 0;
     scene.add( balloon );
+
+    // House
+    const geometryHouse = new THREE.BoxGeometry(10, 10, 10);
+    const materialHouse = new THREE.MeshBasicMaterial( { color: 0xf5f5dc } );
+    const house = new THREE.Mesh(geometryHouse, materialHouse);
+    house.position.x += 20;
+    house.position.y = floor.position.y + 6;
+    house.position.z += 30;
+    scene.add(house);
+
+    // First Part of Roof House (Inclined)
+    const geometryRoof = new THREE.BoxGeometry(11,11,1.7);
+    const materialRoof = new THREE.MeshBasicMaterial( { color: 0xc09d79 });
+    const roof1 = new THREE.Mesh(geometryRoof, materialRoof);
+    roof1.position.x = house.position.x;
+    roof1.position.y = house.position.y + 7;
+    roof1.position.z = house.position.z - 3.4;
+    roof1.rotateX(Math.PI / 4);
+    scene.add(roof1);
+
+    // Second Part of Roof House (Inclined)
+    const roof2 = new THREE.Mesh(geometryRoof, materialRoof);
+    roof2.position.x = house.position.x;
+    roof2.position.y = house.position.y + 7;
+    roof2.position.z = house.position.z + 3.4;
+    roof2.rotateX(3 * Math.PI / 4);
+    scene.add(roof2);
+
+    // Third Part of the Roof (Triangle)
+    const geometryHouse2 = new THREE.CylinderGeometry( 0, 7, 7, 4);
+    const roof3 = new THREE.Mesh(geometryHouse2, materialHouse);
+    roof3.position.x = house.position.x;
+    roof3.position.y = house.position.y + 8;
+    roof3.position.z = house.position.z;
+    roof3.rotateY(Math.PI / 4);
+    scene.add(roof3);
     
 }
 
