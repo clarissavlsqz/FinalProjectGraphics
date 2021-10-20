@@ -746,6 +746,51 @@ function init() {
     chair2.position.y = floor.position.y + 1.5;
     chair2.position.z = table.position.z - 7.5;
     scene.add(chair2);
+
+    // Pier
+    // Leg1
+    const geometryPierShortLeg = new THREE.CylinderGeometry(1,1, 2, 32);
+    const materialPierLeg = new THREE.MeshBasicMaterial({color: 0x966919});
+    const leg1 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
+    leg1.position.x = 10;
+    leg1.position.y = 0;
+    leg1.position.z -= 60;
+    scene.add(leg1);
+
+    //Leg2
+    const leg2 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
+    leg2.position.x = leg1.position.x + 7;
+    leg2.position.y = 0;
+    leg2.position.z -= 60;
+    scene.add(leg2);
+
+    //Leg3
+    const geometryPierLongLeg = new THREE.CylinderGeometry(1,1, 10, 32);
+    const leg3 = new THREE.Mesh(geometryPierLongLeg, materialPierLeg);
+    leg3.position.x = leg1.position.x;
+    leg3.position.y -= 4.5;
+    leg3.position.z -= 73;
+    scene.add(leg3);
+
+    // Leg4
+    const leg4 = new THREE.Mesh(geometryPierLongLeg, materialPierLeg);
+    leg4.position.x = leg2.position.x;
+    leg4.position.y -= 4.5;
+    leg4.position.z -= 73;
+    scene.add(leg4);
+
+
+    // Deck of pier
+    const geometryPier = new THREE.BoxGeometry(10, 20, 1);
+    geometryPier.rotateX(4.7);
+    const materialPier = new THREE.MeshBasicMaterial({color: 0xB87333 });
+    const pier = new THREE.Mesh(geometryPier, materialPier);
+    pier.position.x = 13.5;
+    pier.position.y = 1;
+    pier.position.z -= 66;
+    scene.add(pier);
+
+    
     
 }
 
