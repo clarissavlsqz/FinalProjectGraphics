@@ -140,6 +140,28 @@ function init() {
     //beach.position.y -= 0.5;
     scene.add(beach);
 
+    // Rock
+    const geometryRock = new THREE.DodecahedronGeometry(10, 0);
+    const materialRock = new THREE.MeshBasicMaterial({color: 0xA9A9A9});
+    const rock1 = new THREE.Mesh(geometryRock, materialRock);
+    rock1.position.x = 60;
+    rock1.position.z = 58;
+    rock1.position.y = 5;
+    scene.add(rock1);
+
+    const rock2 = new THREE.Mesh(geometryRock, materialRock);
+    rock2.position.x = 60;
+    rock2.position.z = 45;
+    rock2.position.y = 5;
+    scene.add(rock2);
+
+    const rock3 = new THREE.Mesh(geometryRock, materialRock);
+    rock3.position.x = 55;
+    rock3.position.z = 65;
+    rock3.position.y = 5;
+    scene.add(rock3);
+
+
     // First Cube grass
     const geometryPlane = new THREE.BoxGeometry(79,115);
     geometryPlane.rotateX(4.7);
