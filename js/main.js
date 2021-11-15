@@ -221,10 +221,27 @@ function init() {
     // River
     const geometryRiver = new THREE.BoxGeometry(9,130);
     geometryRiver.rotateX(4.7);
-    const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
-    const river = new THREE.Mesh( geometryRiver, materialRiver);
+    //const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
+    const river = new THREE.Water(
+        geometryRiver,
+        {
+            textureWidth: 512,
+            textureHeight: 512,
+            waterNormals: new THREE.TextureLoader().load( 'textures/waternormals.jpg', function ( texture ) {
+
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+            } ),
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            distortionScale: 3.7,
+            fog: scene.fog !== undefined
+        }
+    );
     river.material.side = THREE.DoubleSide;
     river.position.x = floor.position.x - 44;
+    river.position.y = 0;
     scene.add(river);
 
     // Second Cube Grass
