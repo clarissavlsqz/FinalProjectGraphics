@@ -140,9 +140,20 @@ function init() {
     //beach.position.y -= 0.5;
     scene.add(beach);
 
-    // Rock
+    var light1 = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light1);
+
+    var light2 = new THREE.PointLight(0xffffff, 0.5);
+    scene.add(light2);
+
+    // Rock - Change to MeshStandard if needed for light
     const geometryRock = new THREE.DodecahedronGeometry(10, 0);
-    const materialRock = new THREE.MeshBasicMaterial({color: 0xA9A9A9});
+    const textureRock = new THREE.TextureLoader();
+    const materialRock = new THREE.MeshLambertMaterial({map: textureRock.load("textures/Rough_Rock_023_COLOR.jpg"),
+                                                        normalMap: textureRock.load("textures/Rough_Rock_023_NORM.jpg"),
+                                                        //roughnessMap:textureRock.load("textures/Rough_Rock_023_ROUGH.jpg"),
+                                                        //roughness: 0.5,
+                                                        aoMap: textureRock.load("textures/Rough_Rock_023_OCC.jpg")});
     const rock1 = new THREE.Mesh(geometryRock, materialRock);
     rock1.position.x = 60;
     rock1.position.z = 58;
