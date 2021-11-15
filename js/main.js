@@ -61,6 +61,30 @@ function init() {
         camera.updateProjectionMatrix;
     });
 
+    // Ocean
+    const oceanGeometry = new THREE.PlaneGeometry( 200, 200 );
+    ocean = new THREE.Water(
+        oceanGeometry,
+        {
+            textureWidth: 512,
+            textureHeight: 512,
+            waterNormals: new THREE.TextureLoader().load( 'textures/waternormals.jpg', function ( texture ) {
+
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+            } ),
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            distortionScale: 3.7,
+            fog: scene.fog !== undefined
+        }
+    );
+    
+    ocean.rotation.x = - Math.PI / 2;
+    ocean.position.y = -1.05;
+    scene.add( ocean );
+
     // SkyDome
     var skyBoxGeo = new THREE.BoxGeometry(200, 200, 200);
     skyBox = new THREE.Mesh(skyBoxGeo);
@@ -210,6 +234,18 @@ function init() {
     floor2.material.side = THREE.DoubleSide;
     floor2.position.x = river.position.x - 14.5;
     scene.add(floor2);
+
+    // Fossil Hole
+    const geometryFossilHole = new THREE.CircleGeometry(2, 24);
+    const textureFossilHole = new THREE.TextureLoader();
+    const materialFossilHole = new THREE.MeshBasicMaterial({map: textureFossilHole.load("textures/muniticonholeoff_alb.png")});
+    const fossilHole = new THREE.Mesh(geometryFossilHole, materialFossilHole);
+    fossilHole.position.x = 20;
+    fossilHole.position.y = 0.55;
+    fossilHole.rotation.x = Math.PI / 2;;
+    fossilHole.material.side = THREE.DoubleSide;
+    scene.add(fossilHole);
+
 
     // Camping tent
     const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0)
