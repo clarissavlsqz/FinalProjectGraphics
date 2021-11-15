@@ -24,6 +24,16 @@ function createMaterialArray(filename) {
     return materialArray;
 }
 
+function createMaterialArray2(filename) {
+    const daylightBoxPaths = createPathStrings(filename);
+    const materialArray = daylightBoxPaths.map(image => {
+        let texture = new THREE.TextureLoader().load(image);
+        return new THREE.MeshBasicMaterial({ map: texture });
+    });
+
+    return materialArray;
+}
+
 function init() {
     // Create scene
     scene = new THREE.Scene();
@@ -407,7 +417,8 @@ function init() {
 
     // Trunk
     const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
-    const trunkMaterial = new THREE.MeshBasicMaterial( {color: 0x492000} );
+    const textureTrunk = new THREE.TextureLoader().load("textures/Bark.jpg");
+    const trunkMaterial = new THREE.MeshBasicMaterial( { map: textureTrunk} );
     const trunkCylinder = new THREE.Mesh( trunkGeometry, trunkMaterial );
     trunkCylinder.position.x += 3;
     trunkCylinder.position.y += 4.5;
@@ -416,7 +427,8 @@ function init() {
 
     // Leafs Left
     const sLGeometry = new THREE.SphereGeometry( 3, 32, 16 );
-    const sLMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const textureLeafLeft = new THREE.TextureLoader().load("textures/LeafLeft.jpg");
+    const sLMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
     const lEsfera = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera.position.x += 3;
     lEsfera.position.y += 8;
@@ -425,16 +437,16 @@ function init() {
 
     // Leafs Mid
     const sMGeometry = new THREE.SphereGeometry( 3, 32, 16 );
-    const sMMaterial = new THREE.MeshBasicMaterial( { color: 0x3CB043 } );
+    const sMMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
     const mEsfera = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera.position.x += 3;
-    mEsfera.position.y += 8.5;
+    mEsfera.position.y += 9;
     mEsfera.position.z += -7;
     scene.add( mEsfera );
 
     // Leafs Right
     const sRGeometry = new THREE.SphereGeometry( 3, 32, 16 );
-    const sRMaterial = new THREE.MeshBasicMaterial( { color: 0x74B72E } );
+    const sRMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
     const rEsfera = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera.position.x += 3;
     rEsfera.position.y += 8;
@@ -458,7 +470,7 @@ function init() {
     // Leafs Mid2
     const mEsfera2 = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera2.position.x += 3;
-    mEsfera2.position.y += 8.5;
+    mEsfera2.position.y += 9;
     mEsfera2.position.z += 6.65;
     scene.add( mEsfera2 );
 
@@ -486,7 +498,7 @@ function init() {
     // Leafs Mid3
     const mEsfera3 = new THREE.Mesh( sMGeometry, sMMaterial);
     mEsfera3.position.x += 24;
-    mEsfera3.position.y += 9;
+    mEsfera3.position.y += 10;
     mEsfera3.position.z -= 24.65;
     scene.add( mEsfera3 );
 
@@ -514,7 +526,7 @@ function init() {
     // Leafs Mid4
     const mEsfera4 = new THREE.Mesh( sMGeometry, sMMaterial);
     mEsfera4.position.x += 40;
-    mEsfera4.position.y += 9;
+    mEsfera4.position.y += 10;
     mEsfera4.position.z += 0.65;
     scene.add( mEsfera4 );
 
@@ -528,23 +540,37 @@ function init() {
     // Character
     // Head
     const geometryHead = new THREE.SphereGeometry( 1, 32, 16 );
-    const materialHead = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    const textureHead = new THREE.TextureLoader().load("textures/Head.jpg");
+    const materialHead = new THREE.MeshBasicMaterial( { map: textureHead } );
     const head = new THREE.Mesh( geometryHead, materialHead );
     head.position.y = 5;
     head.position.x = -3;
-    scene.add( head );    
+    scene.add( head );
+    
+    //Hair
+    const geometryHair = new THREE.SphereGeometry(0.3, 32, 16);
+    const materialHair = new THREE.MeshBasicMaterial( {color: 0x6b4d3c });
+    const hair1 = new THREE.Mesh( geometryHair, materialHair );
+    hair1.position.y = head.position.y + 0.7;
+    hair1.position.x = head.position.x + 0.7;
+    scene.add(hair1);
+    const hair2 = new THREE.Mesh( geometryHair, materialHair );
+    hair2.position.y = head.position.y + 0.7;
+    hair2.position.x = head.position.x - 0.7;
+    scene.add(hair2);
 
     // Neck
-    const geometryNeck = new THREE.CylinderGeometry( 0.3, 0.3, 0.5, 14 );
-    const materialNeck = new THREE.MeshBasicMaterial( {color: 0xff0f00} );
+    const geometryNeck = new THREE.CylinderGeometry( 0.3, 0.3, 0.3, 14 );
+    const materialNeck = new THREE.MeshBasicMaterial( {color: 0xf8b890} );
     const neck = new THREE.Mesh( geometryNeck, materialNeck );
     neck.position.y = head.position.y - 1;
     neck.position.x = head.position.x;
     scene.add( neck ); 
     
     // Body
-    const geometryBody = new THREE.CylinderGeometry( 0.7, 0.7, 2, 14 );
-    const materialBody = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+    const geometryBody = new THREE.CylinderGeometry( 0.3, 0.8, 2.2, 14 );
+    const textureBody = new THREE.TextureLoader().load("textures/Body.jpg");
+    const materialBody = new THREE.MeshBasicMaterial( { map: textureBody } );
     const body = new THREE.Mesh( geometryBody, materialBody );
     body.position.y = neck.position.y - 1.2;
     body.position.x = neck.position.x;
@@ -552,17 +578,17 @@ function init() {
 
 
     // Right Arm
-    const geometryArm = new THREE.CylinderGeometry(0.25, 0.25, 1.3, 14);
-    const materialArm = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const geometryArm = new THREE.CylinderGeometry(0.15, 0.15, 1.5, 14);
+    const materialArm = new THREE.MeshBasicMaterial({ color: 0xf8b890 });
     const rightArm = new THREE.Mesh(geometryArm, materialArm);
-    rightArm.position.y = body.position.y + 0.3;
-    rightArm.position.x = body.position.x + 1;
+    rightArm.position.y = body.position.y + 0.5;
+    rightArm.position.x = body.position.x + 0.5;
     rightArm.rotateZ(Math.PI / 4);
     scene.add( rightArm );
 
     // Right Hand
     const geometryHand = new THREE.SphereGeometry(0.3, 32, 16);
-    const materialHand = new THREE.MeshBasicMaterial( { color: 0xff00ff} );
+    const materialHand = new THREE.MeshBasicMaterial( { color: 0xf8b890} );
     const rightHand = new THREE.Mesh(geometryHand, materialHand);
     rightHand.position.y = rightArm.position.y - 0.5;
     rightHand.position.x = rightArm.position.x + 0.5;
@@ -570,8 +596,8 @@ function init() {
 
     // Left Arm
     const leftArm = new THREE.Mesh(geometryArm, materialArm);
-    leftArm.position.y = body.position.y + 0.3;
-    leftArm.position.x = body.position.x - 1;
+    leftArm.position.y = body.position.y + 0.5;
+    leftArm.position.x = body.position.x - 0.5;
     leftArm.rotateZ(3 * Math.PI / 4);
     scene.add(leftArm);
 
@@ -582,8 +608,8 @@ function init() {
     scene.add( leftHand );
 
     //Right Leg
-    const geometryLeg = new THREE.CylinderGeometry(0.25, 0.25, 1.3, 14);
-    const materialLeg = new THREE.MeshBasicMaterial( { color: 0x00ffff} );
+    const geometryLeg = new THREE.CylinderGeometry(0.15, 0.15, 1.6, 14);
+    const materialLeg = new THREE.MeshBasicMaterial( { color: 0xf8b890 } );
     const rightLeg = new THREE.Mesh(geometryLeg, materialLeg);
     rightLeg.position.y = body.position.y - 1.5;
     rightLeg.position.x = body.position.x + 0.3;
@@ -596,17 +622,17 @@ function init() {
     scene.add(leftLeg);
 
     // Right Foot
-    const geometryFoot = new THREE.BoxGeometry(0.5, 0.5, 1);
-    const materialFoot = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    const geometryFoot = new THREE.BoxGeometry(0.5, 0.2, 1);
+    const materialFoot = createMaterialArray2("Foot");
     const rightFoot = new THREE.Mesh(geometryFoot, materialFoot);
-    rightFoot.position.y = rightLeg.position.y - 0.6;
+    rightFoot.position.y = rightLeg.position.y - 0.7;
     rightFoot.position.x = rightLeg.position.x;
     rightFoot.position.z = rightLeg.position.z + 0.25;
     scene.add(rightFoot);
 
     // Left Foot 
     const leftFoot = new THREE.Mesh(geometryFoot, materialFoot);
-    leftFoot.position.y = leftLeg.position.y - 0.6;
+    leftFoot.position.y = leftLeg.position.y - 0.7;
     leftFoot.position.x = leftLeg.position.x;
     leftFoot.position.z = leftLeg.position.z + 0.25;
     scene.add(leftFoot);
@@ -645,7 +671,7 @@ function init() {
 
     // House
     const geometryHouse = new THREE.BoxGeometry(10, 10, 10);
-    const materialHouse = new THREE.MeshBasicMaterial( { color: 0xf5f5dc } );
+    const materialHouse = createMaterialArray2("House");
     const house = new THREE.Mesh(geometryHouse, materialHouse);
     house.position.x += 20;
     house.position.y = floor.position.y + 6;
@@ -654,7 +680,7 @@ function init() {
 
     // First Part of Roof House (Inclined)
     const geometryRoof = new THREE.BoxGeometry(11,11,1.7);
-    const materialRoof = new THREE.MeshBasicMaterial( { color: 0xc09d79 });
+    const materialRoof = createMaterialArray2("Roof");
     const roof1 = new THREE.Mesh(geometryRoof, materialRoof);
     roof1.position.x = house.position.x;
     roof1.position.y = house.position.y + 7;
@@ -681,7 +707,8 @@ function init() {
 
     // Chimney 
     const geometryChimney = new THREE.BoxGeometry(2,4,2);
-    const materialChimney = new THREE.MeshBasicMaterial( { color: 0x828282 } );
+    const textureChimney = new THREE.TextureLoader().load("textures/Chimney.jpg");
+    const materialChimney = new THREE.MeshBasicMaterial( { map: textureChimney } );
     const chimney = new THREE.Mesh(geometryChimney, materialChimney);
     chimney.position.x = house.position.x;
     chimney.position.y = house.position.y + 9;
@@ -690,8 +717,9 @@ function init() {
 
     // Mailbox
     const geometryStickMail = new THREE.BoxGeometry(0.5,3,0.5);
-    const materialMailbox = new THREE.MeshBasicMaterial( {color: 0x312113 });
-    const stickMail = new THREE.Mesh(geometryStickMail, materialMailbox);
+    const textureStickMailbox = new THREE.TextureLoader().load("textures/StickMailbox.jpg");
+    const materialStickMailbox = new THREE.MeshBasicMaterial( {map: textureStickMailbox } );
+    const stickMail = new THREE.Mesh(geometryStickMail, materialStickMailbox);
     stickMail.position.x = house.position.x - 9;
     stickMail.position.y += 2.5;
     stickMail.position.z = house.position.z - 3;
@@ -699,24 +727,17 @@ function init() {
 
     // Box of mail
     const geometryBoxmail = new THREE.BoxGeometry(2,2,2);
+    const materialMailbox = createMaterialArray2("Mailbox");
     const mailBox = new THREE.Mesh(geometryBoxmail, materialMailbox);
     mailBox.position.x = stickMail.position.x;
     mailBox.position.y = stickMail.position.y + 1.5;
     mailBox.position.z = stickMail.position.z;
     scene.add(mailBox);
 
-    // Top of boxmail
-    const geometryTopBoxmail = new THREE.CylinderGeometry(0,1.3,1.3,4);
-    const topMail = new THREE.Mesh(geometryTopBoxmail, materialMailbox);
-    topMail.position.x = stickMail.position.x;
-    topMail.position.y = mailBox.position.y + 1.6;
-    topMail.position.z = stickMail.position.z;
-    topMail.rotateY(Math.PI / 4);
-    scene.add(topMail);
-
     // Table 
     const geometryTable = new THREE.CylinderGeometry(5,5,1,32);
-    const materialTable = new THREE.MeshBasicMaterial( { color: 0xc0c0c0 });
+    const textureTable = new THREE.TextureLoader().load("textures/Wood.jpg");
+    const materialTable = new THREE.MeshBasicMaterial( { map: textureTable });
     const table = new THREE.Mesh(geometryTable, materialTable);
     table.position.x -= 2;
     table.position.y = floor.position.y + 3;
@@ -733,7 +754,8 @@ function init() {
 
     // Chair 1 for table
     const geometryChair = new THREE.CylinderGeometry(2,2,2,32);
-    const materialChair = new THREE.MeshBasicMaterial( { color: 0xa8a9ad });
+    const textureChair = new THREE.TextureLoader().load("textures/Chair.jpg");
+    const materialChair = new THREE.MeshBasicMaterial( { map: textureChair });
     const chair1 = new THREE.Mesh(geometryChair, materialChair);
     chair1.position.x = table.position.x;
     chair1.position.y = floor.position.y + 1.5;
@@ -746,6 +768,51 @@ function init() {
     chair2.position.y = floor.position.y + 1.5;
     chair2.position.z = table.position.z - 7.5;
     scene.add(chair2);
+
+    // Pier
+    // Leg1
+    const geometryPierShortLeg = new THREE.CylinderGeometry(1,1, 2, 32);
+    const materialPierLeg = new THREE.MeshBasicMaterial({color: 0x966919});
+    const leg1 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
+    leg1.position.x = 10;
+    leg1.position.y = 0;
+    leg1.position.z -= 60;
+    scene.add(leg1);
+
+    //Leg2
+    const leg2 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
+    leg2.position.x = leg1.position.x + 7;
+    leg2.position.y = 0;
+    leg2.position.z -= 60;
+    scene.add(leg2);
+
+    //Leg3
+    const geometryPierLongLeg = new THREE.CylinderGeometry(1,1, 10, 32);
+    const leg3 = new THREE.Mesh(geometryPierLongLeg, materialPierLeg);
+    leg3.position.x = leg1.position.x;
+    leg3.position.y -= 4.5;
+    leg3.position.z -= 73;
+    scene.add(leg3);
+
+    // Leg4
+    const leg4 = new THREE.Mesh(geometryPierLongLeg, materialPierLeg);
+    leg4.position.x = leg2.position.x;
+    leg4.position.y -= 4.5;
+    leg4.position.z -= 73;
+    scene.add(leg4);
+
+
+    // Deck of pier
+    const geometryPier = new THREE.BoxGeometry(10, 20, 1);
+    geometryPier.rotateX(4.7);
+    const materialPier = new THREE.MeshBasicMaterial({color: 0xB87333 });
+    const pier = new THREE.Mesh(geometryPier, materialPier);
+    pier.position.x = 13.5;
+    pier.position.y = 1;
+    pier.position.z -= 66;
+    scene.add(pier);
+
+    
     
 }
 
