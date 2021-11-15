@@ -149,11 +149,11 @@ function init() {
     // Rock - Change to MeshStandard if needed for light
     const geometryRock = new THREE.DodecahedronGeometry(10, 0);
     const textureRock = new THREE.TextureLoader();
-    const materialRock = new THREE.MeshLambertMaterial({map: textureRock.load("textures/Rough_Rock_023_COLOR.jpg"),
-                                                        normalMap: textureRock.load("textures/Rough_Rock_023_NORM.jpg"),
+    const materialRock = new THREE.MeshBasicMaterial({map: textureRock.load("textures/mbody_alb.png")});
+                                                        //normalMap: textureRock.load("textures/mbody_nrm.png"),
                                                         //roughnessMap:textureRock.load("textures/Rough_Rock_023_ROUGH.jpg"),
                                                         //roughness: 0.5,
-                                                        aoMap: textureRock.load("textures/Rough_Rock_023_OCC.jpg")});
+                                                        //aoMap: textureRock.load("textures/mbody_ao.png"
     const rock1 = new THREE.Mesh(geometryRock, materialRock);
     rock1.position.x = 60;
     rock1.position.z = 58;
@@ -794,7 +794,8 @@ function init() {
     // Deck of pier
     const geometryPier = new THREE.BoxGeometry(10, 20, 1);
     geometryPier.rotateX(4.7);
-    const materialPier = new THREE.MeshBasicMaterial({color: 0xB87333 });
+    const deckPierTexture = new THREE.TextureLoader();
+    const materialPier = new THREE.MeshBasicMaterial({map: deckPierTexture.load("textures/wood_0030_color_4k.jpg") });
     const pier = new THREE.Mesh(geometryPier, materialPier);
     pier.position.x = 13.5;
     pier.position.y = 1;
