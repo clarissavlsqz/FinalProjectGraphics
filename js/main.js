@@ -270,12 +270,22 @@ function init() {
     // Camping tent
     const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
     const textureTent = new THREE.TextureLoader();
-    const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/Fabric_Nylon_001_basecolor.jpg")});
+    const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/mDoortent_Alb.png")});
     const pyramid = new THREE.Mesh(geometryTent, materialTent);
     pyramid.position.x -= 15;
     pyramid.position.z -= 30;
-    pyramid.position.y += 5.5;
+    pyramid.position.y += 4.5;
     scene.add(pyramid);
+
+    // Open tent
+    const geometryDoorTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
+    const materialDoorTent = new THREE.MeshBasicMaterial({color: 0x000000});
+    const doorTent = new THREE.Mesh(geometryDoorTent, materialDoorTent);
+    doorTent.position.x -= 15;
+    doorTent.position.z -= 27.5;
+    doorTent.position.y += 1.5;
+    doorTent.material.side = THREE.DoubleSide;
+    scene.add(doorTent);
 
 
     //Choza Dock Right = CDR
