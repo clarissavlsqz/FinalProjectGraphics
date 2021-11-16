@@ -290,7 +290,8 @@ function init() {
 
     //Choza Dock Right = CDR
     const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
-    const materialCDR = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDR = new THREE.TextureLoader();
+    const materialCDR = new THREE.MeshBasicMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
     const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
     cubeCDR.position.x += -50;
     cubeCDR.position.y += 5;
@@ -299,7 +300,8 @@ function init() {
 
     //Choza Dock  = CD
     const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
-    const materialCD = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const textureCD = new THREE.TextureLoader();
+    const materialCD = new THREE.MeshBasicMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
     const cubeCD = new THREE.Mesh( geometryCD, materialCD );
     cubeCD.position.x = cubeCDR.position.x;
     cubeCD.position.y = cubeCDR.position.y - 4.5;
@@ -307,26 +309,29 @@ function init() {
     scene.add( cubeCD );
 
     //Choza Dock Up = CDU
-    const geometryCDU = new THREE.BoxGeometry( 10, 1, 10 ); 
-    const materialCDU = new THREE.MeshBasicMaterial( {color: 0xffdddd} );
+    const geometryCDU = new THREE.BoxGeometry( 9.5, 1, 9.3 ); 
+    const textureCDU = new THREE.TextureLoader();
+    const materialCDU = new THREE.MeshBasicMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
     const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
     cubeCDU.position.x = cubeCDR.position.x;
-    cubeCDU.position.y = cubeCDR.position.y + 4.4;
+    cubeCDU.position.y = cubeCDR.position.y + 4.5;
     cubeCDU.position.z = cubeCDR.position.z - 5 ;
     scene.add( cubeCDU );
 
     //Choza Dock Viewer = CDV
     const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
-    const materialCDV = new THREE.MeshBasicMaterial( {color: 0x000000} );
+    const textureCDV = new THREE.TextureLoader();
+    const materialCDV = new THREE.MeshBasicMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
     const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
     cubeCDV.position.x = cubeCDR.position.x -2;
-    cubeCDV.position.y = cubeCDR.position.y + 5;
+    cubeCDV.position.y = cubeCDR.position.y + 5.5;
     cubeCDV.position.z = cubeCDR.position.z - 3.5;
     scene.add( cubeCDV );
 
     //Choza Dock Viewer Cylinder = CDVC
     const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
-    const materialCDVC = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDVC = new THREE.TextureLoader();
+    const materialCDVC = new THREE.MeshBasicMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
     const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
     cylinderCDVC.position.x = cubeCDR.position.x -2;
     cylinderCDVC.position.y = cubeCDR.position.y + 6;
