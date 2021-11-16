@@ -61,6 +61,30 @@ function init() {
         camera.updateProjectionMatrix;
     });
 
+    // Ocean
+    const oceanGeometry = new THREE.PlaneGeometry( 200, 200 );
+    ocean = new THREE.Water(
+        oceanGeometry,
+        {
+            textureWidth: 512,
+            textureHeight: 512,
+            waterNormals: new THREE.TextureLoader().load( 'textures/waternormals.jpg', function ( texture ) {
+
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+            } ),
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            distortionScale: 3.7,
+            fog: scene.fog !== undefined
+        }
+    );
+    
+    ocean.rotation.x = - Math.PI / 2;
+    ocean.position.y = -1.05;
+    scene.add( ocean );
+
     // SkyDome
     var skyBoxGeo = new THREE.BoxGeometry(200, 200, 200);
     skyBox = new THREE.Mesh(skyBoxGeo);
@@ -142,7 +166,8 @@ function init() {
     // Plane beach
     const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
     geometryBeach.rotateX(4.7);
-    const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
+    const textureBeach = new THREE.TextureLoader();
+    const materialBeach = new THREE.MeshBasicMaterial( {map: textureBeach.load("textures/mSand_Alb.png")} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
     const beach = new THREE.Mesh( geometryBeach, materialBeach );
@@ -150,9 +175,20 @@ function init() {
     //beach.position.y -= 0.5;
     scene.add(beach);
 
-    // Rock
+    var light1 = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light1);
+
+    var light2 = new THREE.PointLight(0xffffff, 0.5);
+    scene.add(light2);
+
+    // Rock - Change to MeshStandard if needed for light
     const geometryRock = new THREE.DodecahedronGeometry(10, 0);
-    const materialRock = new THREE.MeshBasicMaterial({color: 0xA9A9A9});
+    const textureRock = new THREE.TextureLoader();
+    const materialRock = new THREE.MeshBasicMaterial({map: textureRock.load("textures/mbody_alb.png")});
+                                                        //normalMap: textureRock.load("textures/mbody_nrm.png"),
+                                                        //roughnessMap:textureRock.load("textures/Rough_Rock_023_ROUGH.jpg"),
+                                                        //roughness: 0.5,
+                                                        //aoMap: textureRock.load("textures/mbody_ao.png"
     const rock1 = new THREE.Mesh(geometryRock, materialRock);
     rock1.position.x = 60;
     rock1.position.z = 58;
@@ -175,9 +211,11 @@ function init() {
     // First Cube grass
     const geometryPlane = new THREE.BoxGeometry(79,115);
     geometryPlane.rotateX(4.7);
-    //const texture = new THREE.TextureLoader().load('textures/grass.png');
-    //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
-    const materialPlane = new THREE.MeshBasicMaterial( {color: 0x228B22} )
+    const textureGrass = new THREE.ImageUtils.loadTexture("textures/GameCube - Animal Crossing - Flooring.png");
+    textureGrass.wrapS = textureGrass.wrapT = THREE.RepeatWrapping; 
+	textureGrass.repeat.set( 10, 10 );
+    //const materialGrass = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
+    const materialPlane = new THREE.MeshBasicMaterial( {map: textureGrass});
     const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
     floor.position.x = beach.position.x + 14;
@@ -186,10 +224,27 @@ function init() {
     // River
     const geometryRiver = new THREE.BoxGeometry(9,130);
     geometryRiver.rotateX(4.7);
-    const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
-    const river = new THREE.Mesh( geometryRiver, materialRiver);
+    //const materialRiver = new THREE.MeshBasicMaterial ( {color: 0x0D64A3} );
+    const river = new THREE.Water(
+        geometryRiver,
+        {
+            textureWidth: 512,
+            textureHeight: 512,
+            waterNormals: new THREE.TextureLoader().load( 'textures/waternormals.jpg', function ( texture ) {
+
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+            } ),
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            distortionScale: 3.7,
+            fog: scene.fog !== undefined
+        }
+    );
     river.material.side = THREE.DoubleSide;
     river.position.x = floor.position.x - 44;
+    river.position.y = 0.5;
     scene.add(river);
 
     // Second Cube Grass
@@ -200,14 +255,37 @@ function init() {
     floor2.position.x = river.position.x - 14.5;
     scene.add(floor2);
 
+    // Fossil Hole
+    const geometryFossilHole = new THREE.CircleGeometry(2, 24);
+    const textureFossilHole = new THREE.TextureLoader();
+    const materialFossilHole = new THREE.MeshBasicMaterial({map: textureFossilHole.load("textures/muniticonholeoff_alb.png")});
+    const fossilHole = new THREE.Mesh(geometryFossilHole, materialFossilHole);
+    fossilHole.position.x = 20;
+    fossilHole.position.y = 0.55;
+    fossilHole.rotation.x = Math.PI / 2;;
+    fossilHole.material.side = THREE.DoubleSide;
+    scene.add(fossilHole);
+
+
     // Camping tent
-    const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0)
-    const materialTent = new THREE.MeshNormalMaterial();
+    const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
+    const textureTent = new THREE.TextureLoader();
+    const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/mDoortent_Alb.png")});
     const pyramid = new THREE.Mesh(geometryTent, materialTent);
     pyramid.position.x -= 15;
     pyramid.position.z -= 30;
-    pyramid.position.y += 5.5;
+    pyramid.position.y += 4.5;
     scene.add(pyramid);
+
+    // Open tent
+    const geometryDoorTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
+    const materialDoorTent = new THREE.MeshBasicMaterial({color: 0x000000});
+    const doorTent = new THREE.Mesh(geometryDoorTent, materialDoorTent);
+    doorTent.position.x -= 15;
+    doorTent.position.z -= 27.5;
+    doorTent.position.y += 1.5;
+    doorTent.material.side = THREE.DoubleSide;
+    scene.add(doorTent);
 
 
     //Choza Dock Right = CDR
@@ -639,14 +717,15 @@ function init() {
 
     // GiftBox
     const giftBoxGeo = new THREE.BoxGeometry();
-    const materialGiftBox = new THREE.MeshBasicMaterial({ color: 0xFFB6C1});
+    const giftTexture = new THREE.TextureLoader();
+    const materialGiftBox = new THREE.MeshBasicMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
     const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
     giftBox.position.y += 10;
 	scene.add(giftBox);
 
     // Line between box and balloon
     const materialLine = new THREE.LineBasicMaterial({
-        color: 0x0000ff,
+        color: 0x000000,
         linewidth: 10,
     });
     
@@ -663,7 +742,7 @@ function init() {
 
     // Balloon
     const geometryBalloon = new THREE.SphereGeometry(0.7, 32, 16);
-    const materialBalloon = new THREE.MeshBasicMaterial( { color: 0xff0000} );
+    const materialBalloon = new THREE.MeshPhongMaterial( { color: 0xff0000} );
     const balloon = new THREE.Mesh(geometryBalloon, materialBalloon);
     balloon.position.y += 12; 
     balloon.position.x = 0;
@@ -772,7 +851,8 @@ function init() {
     // Pier
     // Leg1
     const geometryPierShortLeg = new THREE.CylinderGeometry(1,1, 2, 32);
-    const materialPierLeg = new THREE.MeshBasicMaterial({color: 0x966919});
+    const texturePier = new THREE.TextureLoader();
+    const materialPierLeg = new THREE.MeshBasicMaterial({map: texturePier.load("textures/GameCube - Animal Crossing - Wallpaper.png")});
     const leg1 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
     leg1.position.x = 10;
     leg1.position.y = 0;
@@ -805,7 +885,8 @@ function init() {
     // Deck of pier
     const geometryPier = new THREE.BoxGeometry(10, 20, 1);
     geometryPier.rotateX(4.7);
-    const materialPier = new THREE.MeshBasicMaterial({color: 0xB87333 });
+    const deckPierTexture = new THREE.TextureLoader();
+    const materialPier = new THREE.MeshBasicMaterial({map: deckPierTexture.load("textures/GameCube - Animal Crossing - Wallpaper.png") });
     const pier = new THREE.Mesh(geometryPier, materialPier);
     pier.position.x = 13.5;
     pier.position.y = 1;
