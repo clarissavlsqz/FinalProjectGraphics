@@ -166,7 +166,8 @@ function init() {
     // Plane beach
     const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
     geometryBeach.rotateX(4.7);
-    const materialBeach = new THREE.MeshBasicMaterial( {color: 0xC2B280} );
+    const textureBeach = new THREE.TextureLoader();
+    const materialBeach = new THREE.MeshBasicMaterial( {map: textureBeach.load("textures/mSand_Alb.png")} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
     const beach = new THREE.Mesh( geometryBeach, materialBeach );
@@ -210,9 +211,11 @@ function init() {
     // First Cube grass
     const geometryPlane = new THREE.BoxGeometry(79,115);
     geometryPlane.rotateX(4.7);
-    //const texture = new THREE.TextureLoader().load('textures/grass.png');
-    //const material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
-    const materialPlane = new THREE.MeshBasicMaterial( {color: 0x228B22} )
+    const textureGrass = new THREE.ImageUtils.loadTexture("textures/GameCube - Animal Crossing - Flooring.png");
+    textureGrass.wrapS = textureGrass.wrapT = THREE.RepeatWrapping; 
+	textureGrass.repeat.set( 10, 10 );
+    //const materialGrass = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
+    const materialPlane = new THREE.MeshBasicMaterial( {map: textureGrass});
     const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
     floor.position.x = beach.position.x + 14;
@@ -241,7 +244,7 @@ function init() {
     );
     river.material.side = THREE.DoubleSide;
     river.position.x = floor.position.x - 44;
-    river.position.y = 0;
+    river.position.y = 0.5;
     scene.add(river);
 
     // Second Cube Grass
@@ -265,8 +268,9 @@ function init() {
 
 
     // Camping tent
-    const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0)
-    const materialTent = new THREE.MeshNormalMaterial();
+    const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
+    const textureTent = new THREE.TextureLoader();
+    const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/Fabric_Nylon_001_basecolor.jpg")});
     const pyramid = new THREE.Mesh(geometryTent, materialTent);
     pyramid.position.x -= 15;
     pyramid.position.z -= 30;
@@ -703,14 +707,15 @@ function init() {
 
     // GiftBox
     const giftBoxGeo = new THREE.BoxGeometry();
-    const materialGiftBox = new THREE.MeshBasicMaterial({ color: 0xFFB6C1});
+    const giftTexture = new THREE.TextureLoader();
+    const materialGiftBox = new THREE.MeshBasicMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
     const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
     giftBox.position.y += 10;
 	scene.add(giftBox);
 
     // Line between box and balloon
     const materialLine = new THREE.LineBasicMaterial({
-        color: 0x0000ff,
+        color: 0x000000,
         linewidth: 10,
     });
     
@@ -727,7 +732,7 @@ function init() {
 
     // Balloon
     const geometryBalloon = new THREE.SphereGeometry(0.7, 32, 16);
-    const materialBalloon = new THREE.MeshBasicMaterial( { color: 0xff0000} );
+    const materialBalloon = new THREE.MeshPhongMaterial( { color: 0xff0000} );
     const balloon = new THREE.Mesh(geometryBalloon, materialBalloon);
     balloon.position.y += 12; 
     balloon.position.x = 0;
@@ -836,7 +841,8 @@ function init() {
     // Pier
     // Leg1
     const geometryPierShortLeg = new THREE.CylinderGeometry(1,1, 2, 32);
-    const materialPierLeg = new THREE.MeshBasicMaterial({color: 0x966919});
+    const texturePier = new THREE.TextureLoader();
+    const materialPierLeg = new THREE.MeshBasicMaterial({map: texturePier.load("textures/GameCube - Animal Crossing - Wallpaper.png")});
     const leg1 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
     leg1.position.x = 10;
     leg1.position.y = 0;
@@ -870,7 +876,7 @@ function init() {
     const geometryPier = new THREE.BoxGeometry(10, 20, 1);
     geometryPier.rotateX(4.7);
     const deckPierTexture = new THREE.TextureLoader();
-    const materialPier = new THREE.MeshBasicMaterial({map: deckPierTexture.load("textures/wood_0030_color_4k.jpg") });
+    const materialPier = new THREE.MeshBasicMaterial({map: deckPierTexture.load("textures/GameCube - Animal Crossing - Wallpaper.png") });
     const pier = new THREE.Mesh(geometryPier, materialPier);
     pier.position.x = 13.5;
     pier.position.y = 1;
