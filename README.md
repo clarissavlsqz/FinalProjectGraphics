@@ -5,6 +5,11 @@ Carolina Medina Medrano\
 Clarissa Andrea Velásquez Magaña A01281743\
 Gabriel Gomez Novau
 
+## Instrucciones
+- Dentro de VS Code instalar la extensión de Live Server
+- Una vez instalada debe de salir en la barra de abajo un icono con un texto GoLive
+- Picarle a ese botón y podrá ver la escena en su navegador
+
 ## Descripción de la escena
 Nos vamos a basar en el popular videojuego Animal Crossing para nuestra escena. Para dar un poco de contexto, Animal Crossing trata de que el jugador llega a un pueblo o isla sin nada. Por lo tanto, tiene que conseguir dinero para mejorar su casa. Sin embargo, también puede hacer otra cantidad de cosas como pescar, atrapar insectos, hacer amigos con los animales del lugar, recolectar fósiles, etc.
 
@@ -32,4 +37,5 @@ Después de haber hecho una breve investigación decidimos que las siguientes li
 ## Modelos 3D
 - [Dodos Airlines by pratamacam is licensed under Creative Commons Attribution] (https://skfb.ly/6Spqq)
 - [Camping Tent] (https://www.models-resource.com/3ds/animalcrossingnewleaf/model/10421/)
-- Dodo Seaplane (https://archive.org/details/acnh-2.0.0-models)
+- Dodo Seaplane, flowers (https://archive.org/details/acnh-2.0.0-models)
+- Textures (https://www.textures-resource.com/gamecube/animalcrossing/)
