@@ -1,4 +1,4 @@
-let scene, camera, renderer, cube, skyBox;
+let scene, camera, renderer, cube, skyBox, plane;
 let baseImageName = "Daylight Box";
 
 function createPathStrings(filename) {
@@ -52,6 +52,38 @@ function init() {
     // Set window size
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
+
+    
+    // Set loader
+    /* var loader = new THREE.ColladaLoader();
+    loader.options.convertUpAxis = true; 
+    loader.load('models/StrcPlaneA00.dae',function colladaReady( collada ){
+        player = collada.scene;
+        player.scale.x = player.scale.y = player.scale.z = 10;
+        scene.add( player );
+        });
+
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.load("models/hobj_tent_01.mtl", function (materials) {
+        materials.preload();
+        // Load the object
+        var objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.load("models/hobj_tent_01.obj", function (object) {
+          scene.add(object);
+      
+          object.position.x = -3;
+          object.position.y = 0;
+          object.position.z = 60;
+      
+          object.rotation.x = 0;
+          object.rotation.y = 0;
+          object.rotation.z = 0;
+          car = object;
+        });
+      });
+ */
+
 
     window.addEventListener('resize', function() {
         var width = window.innerWidth;
@@ -163,8 +195,8 @@ function init() {
     }
     
 
-    // Plane beach
-    const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
+    // Cube beach
+    const geometryBeach = new THREE.BoxGeometry(125,130);
     geometryBeach.rotateX(4.7);
     const textureBeach = new THREE.TextureLoader();
     const materialBeach = new THREE.MeshBasicMaterial( {map: textureBeach.load("textures/mSand_Alb.png")} );
