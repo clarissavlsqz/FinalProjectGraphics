@@ -1,5 +1,6 @@
 let scene, camera, renderer, cube, skyBox;
 let baseImageName = "Daylight Box";
+var clock = new THREE.Clock();
 
 function createPathStrings(filename) {
     const basePath = "textures/";
@@ -271,8 +272,8 @@ function init() {
     const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
     const textureTent = new THREE.TextureLoader();
     const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/mDoortent_Alb.png")});
-    const pyramid = new THREE.Mesh(geometryTent, materialTent);
-    pyramid.position.x -= 15;
+    pyramid = new THREE.Mesh(geometryTent, materialTent);
+    pyramid.position.x -= 10;
     pyramid.position.z -= 30;
     pyramid.position.y += 4.5;
     scene.add(pyramid);
@@ -280,8 +281,8 @@ function init() {
     // Open tent
     const geometryDoorTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
     const materialDoorTent = new THREE.MeshBasicMaterial({color: 0x000000});
-    const doorTent = new THREE.Mesh(geometryDoorTent, materialDoorTent);
-    doorTent.position.x -= 15;
+    doorTent = new THREE.Mesh(geometryDoorTent, materialDoorTent);
+    doorTent.position.x -= 10;
     doorTent.position.z -= 27.5;
     doorTent.position.y += 1.5;
     doorTent.material.side = THREE.DoubleSide;
@@ -623,7 +624,6 @@ function init() {
     const head = new THREE.Mesh( geometryHead, materialHead );
     head.position.y = 5;
     head.position.x = -3;
-    scene.add( head );
     
     //Hair
     const geometryHair = new THREE.SphereGeometry(0.3, 32, 16);
@@ -631,11 +631,9 @@ function init() {
     const hair1 = new THREE.Mesh( geometryHair, materialHair );
     hair1.position.y = head.position.y + 0.7;
     hair1.position.x = head.position.x + 0.7;
-    scene.add(hair1);
     const hair2 = new THREE.Mesh( geometryHair, materialHair );
     hair2.position.y = head.position.y + 0.7;
     hair2.position.x = head.position.x - 0.7;
-    scene.add(hair2);
 
     // Neck
     const geometryNeck = new THREE.CylinderGeometry( 0.3, 0.3, 0.3, 14 );
@@ -643,7 +641,6 @@ function init() {
     const neck = new THREE.Mesh( geometryNeck, materialNeck );
     neck.position.y = head.position.y - 1;
     neck.position.x = head.position.x;
-    scene.add( neck ); 
     
     // Body
     const geometryBody = new THREE.CylinderGeometry( 0.3, 0.8, 2.2, 14 );
@@ -652,7 +649,6 @@ function init() {
     const body = new THREE.Mesh( geometryBody, materialBody );
     body.position.y = neck.position.y - 1.2;
     body.position.x = neck.position.x;
-    scene.add( body ); 
 
 
     // Right Arm
@@ -662,7 +658,6 @@ function init() {
     rightArm.position.y = body.position.y + 0.5;
     rightArm.position.x = body.position.x + 0.5;
     rightArm.rotateZ(Math.PI / 4);
-    scene.add( rightArm );
 
     // Right Hand
     const geometryHand = new THREE.SphereGeometry(0.3, 32, 16);
@@ -670,20 +665,17 @@ function init() {
     const rightHand = new THREE.Mesh(geometryHand, materialHand);
     rightHand.position.y = rightArm.position.y - 0.5;
     rightHand.position.x = rightArm.position.x + 0.5;
-    scene.add( rightHand );
 
     // Left Arm
     const leftArm = new THREE.Mesh(geometryArm, materialArm);
     leftArm.position.y = body.position.y + 0.5;
     leftArm.position.x = body.position.x - 0.5;
     leftArm.rotateZ(3 * Math.PI / 4);
-    scene.add(leftArm);
 
     // Left Hand
     const leftHand = new THREE.Mesh(geometryHand, materialHand);
     leftHand.position.y = leftArm.position.y - 0.5;
     leftHand.position.x = leftArm.position.x - 0.5;
-    scene.add( leftHand );
 
     //Right Leg
     const geometryLeg = new THREE.CylinderGeometry(0.15, 0.15, 1.6, 14);
@@ -691,13 +683,11 @@ function init() {
     const rightLeg = new THREE.Mesh(geometryLeg, materialLeg);
     rightLeg.position.y = body.position.y - 1.5;
     rightLeg.position.x = body.position.x + 0.3;
-    scene.add(rightLeg);
 
     // Left Leg
     const leftLeg = new THREE.Mesh(geometryLeg, materialLeg);
     leftLeg.position.y = body.position.y - 1.5;
     leftLeg.position.x = body.position.x - 0.3;
-    scene.add(leftLeg);
 
     // Right Foot
     const geometryFoot = new THREE.BoxGeometry(0.5, 0.2, 1);
@@ -706,14 +696,29 @@ function init() {
     rightFoot.position.y = rightLeg.position.y - 0.7;
     rightFoot.position.x = rightLeg.position.x;
     rightFoot.position.z = rightLeg.position.z + 0.25;
-    scene.add(rightFoot);
 
     // Left Foot 
     const leftFoot = new THREE.Mesh(geometryFoot, materialFoot);
     leftFoot.position.y = leftLeg.position.y - 0.7;
     leftFoot.position.x = leftLeg.position.x;
     leftFoot.position.z = leftLeg.position.z + 0.25;
-    scene.add(leftFoot);
+
+    // Create group for character
+    const character = new THREE.Group();
+    character.add( head );
+    character.add(hair1);
+    character.add(hair2);
+    character.add( neck ); 
+    character.add( body );
+    character.add( rightArm );
+    character.add( rightHand );
+    character.add(leftArm);
+    character.add( leftHand );
+    character.add(rightLeg);
+    character.add(leftLeg);
+    character.add(rightFoot);
+    character.add(leftFoot);
+    scene.add(character);
 
     // GiftBox
     const giftBoxGeo = new THREE.BoxGeometry();
@@ -893,6 +898,27 @@ function init() {
     pier.position.z -= 66;
     scene.add(pier);
 
+    // movement - please calibrate these values
+    var xSpeed = 0.08;
+    var zSpeed = 0.08;
+
+     // Get if a key has been pressed
+     document.addEventListener("keydown", onDocumentKeyDown, false);
+     function onDocumentKeyDown(event) {
+         var keyCode = event.which;
+         if(keyCode == 65 && character.position.x > -10) {
+             character.translateX(-xSpeed);
+         }
+         else if(keyCode == 68 && character.position.x < 3) {
+             character.translateX(xSpeed);
+         }
+         else if(keyCode == 83 && character.position.z > -10) {
+             character.translateZ(-zSpeed);
+         }
+         else if(keyCode == 87 && character.position.z < 10) {
+             character.translateZ(zSpeed);
+         }
+     }
     
     
 }
@@ -901,10 +927,32 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
+    render();
    // skyBox.rotation.x += 0.005;
     //skyBox.rotation.y += 0.005;
-    renderer.render(scene, camera);
     controls.update();
+}
+
+function render() {
+    
+    var t = clock.getElapsedTime();
+    
+    if (t >= 3.0) {
+        clock = new THREE.Clock;
+        pyramid.scale.set(3,3,3);
+        doorTent.scale.set(3,3,3);
+
+    } else {
+        pyramid.scale.x = 3-(t/3.0);
+    	pyramid.scale.y = 3-(t/3.0);
+		pyramid.scale.z = 3-(t/3.0);
+        doorTent.scale.x = 3-(t/3.0);
+    	doorTent.scale.y = 3-(t/3.0);
+		doorTent.scale.z = 3-(t/3.0);    
+    }
+
+    renderer.render(scene, camera);
+
 }
 // Make the scene persisten when resize the window
 /* function onWindowResize() {
