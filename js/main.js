@@ -291,7 +291,8 @@ function init() {
 
     //Choza Dock Right = CDR
     const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
-    const materialCDR = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDR = new THREE.TextureLoader();
+    const materialCDR = new THREE.MeshBasicMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
     const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
     cubeCDR.position.x += -50;
     cubeCDR.position.y += 5;
@@ -300,7 +301,8 @@ function init() {
 
     //Choza Dock  = CD
     const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
-    const materialCD = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const textureCD = new THREE.TextureLoader();
+    const materialCD = new THREE.MeshBasicMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
     const cubeCD = new THREE.Mesh( geometryCD, materialCD );
     cubeCD.position.x = cubeCDR.position.x;
     cubeCD.position.y = cubeCDR.position.y - 4.5;
@@ -308,26 +310,29 @@ function init() {
     scene.add( cubeCD );
 
     //Choza Dock Up = CDU
-    const geometryCDU = new THREE.BoxGeometry( 10, 1, 10 ); 
-    const materialCDU = new THREE.MeshBasicMaterial( {color: 0xffdddd} );
+    const geometryCDU = new THREE.BoxGeometry( 9.5, 1, 9.3 ); 
+    const textureCDU = new THREE.TextureLoader();
+    const materialCDU = new THREE.MeshBasicMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
     const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
     cubeCDU.position.x = cubeCDR.position.x;
-    cubeCDU.position.y = cubeCDR.position.y + 4.4;
+    cubeCDU.position.y = cubeCDR.position.y + 4.5;
     cubeCDU.position.z = cubeCDR.position.z - 5 ;
     scene.add( cubeCDU );
 
     //Choza Dock Viewer = CDV
     const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
-    const materialCDV = new THREE.MeshBasicMaterial( {color: 0x000000} );
+    const textureCDV = new THREE.TextureLoader();
+    const materialCDV = new THREE.MeshBasicMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
     const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
     cubeCDV.position.x = cubeCDR.position.x -2;
-    cubeCDV.position.y = cubeCDR.position.y + 5;
+    cubeCDV.position.y = cubeCDR.position.y + 5.5;
     cubeCDV.position.z = cubeCDR.position.z - 3.5;
     scene.add( cubeCDV );
 
     //Choza Dock Viewer Cylinder = CDVC
     const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
-    const materialCDVC = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDVC = new THREE.TextureLoader();
+    const materialCDVC = new THREE.MeshBasicMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
     const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
     cylinderCDVC.position.x = cubeCDR.position.x -2;
     cylinderCDVC.position.y = cubeCDR.position.y + 6;
@@ -337,7 +342,8 @@ function init() {
 
     //Choza Dock Left  = CDL
     const geometryCDL = new THREE.BoxGeometry( 7, 10, 1 ); 
-    const materialCDL = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDL = new THREE.TextureLoader();
+    const materialCDL = new THREE.MeshBasicMaterial({map: textureCDL.load("textures/DockBluePaint.jpg")});
     const cubeCDL = new THREE.Mesh( geometryCDL, materialCDL );
     cubeCDL.position.x = cubeCDR.position.x + 1.5;
     cubeCDL.position.y = cubeCDR.position.y;
@@ -346,7 +352,8 @@ function init() {
 
     //Choza Dock Back = CDB
     const geometryCDB = new THREE.BoxGeometry( 1, 10, 10 ); 
-    const materialCDB = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDB = new THREE.TextureLoader();
+    const materialCDB = new THREE.MeshBasicMaterial({map: textureCDB.load("textures/DockBluePaint.jpg")});
     const cubeCDB = new THREE.Mesh( geometryCDB, materialCDB );
     cubeCDB.position.x = cubeCDR.position.x + 4.5;
     cubeCDB.position.y = cubeCDR.position.y;
@@ -355,7 +362,8 @@ function init() {
 
     //Choza Dock Front = CDF
     const geometryCDF = new THREE.BoxGeometry( 1, 10, 7 ); 
-    const materialCDF = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureCDF = new THREE.TextureLoader();
+    const materialCDF = new THREE.MeshBasicMaterial({map: textureCDF.load("textures/DockBluePaint.jpg")});
     const cubeCDF = new THREE.Mesh( geometryCDF, materialCDF );
     cubeCDF.position.x = cubeCDR.position.x - 5;
     cubeCDF.position.y = cubeCDR.position.y;
@@ -364,7 +372,8 @@ function init() {
 
     //Ventana Dock Front= VDF
     const geometryVDF = new THREE.BoxGeometry( 1, 3, 2 ); 
-    const materialVDF = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const textureVDF = new THREE.TextureLoader();
+    const materialVDF = new THREE.MeshBasicMaterial({map: textureVDF.load("textures/Window.jpg")});
     const cubeVDF = new THREE.Mesh( geometryVDF, materialVDF );
     cubeVDF.position.x = cubeCDR.position.x - 5.5;
     cubeVDF.position.y = cubeCDR.position.y;
@@ -373,7 +382,8 @@ function init() {
 
     //Ventana Dock Left= VDL
     const geometryVDL = new THREE.BoxGeometry( 2, 3, 1 ); 
-    const materialVDL = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+    const textureVDL = new THREE.TextureLoader();
+    const materialVDL = new THREE.MeshBasicMaterial({map: textureVDL.load("textures/Window.jpg")});
     const cubeVDL = new THREE.Mesh( geometryVDL, materialVDL );
     cubeVDL.position.x = cubeCDR.position.x;
     cubeVDL.position.y = cubeCDR.position.y;
@@ -382,7 +392,8 @@ function init() {
 
     //Body Front = BF
     const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
-    const materialBF = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureBF = new THREE.TextureLoader();
+    const materialBF = new THREE.MeshBasicMaterial({map: textureBF.load("textures/PlaneBluePaint.jpg")});
     const cylinderBF = new THREE.Mesh( geometryBF, materialBF );
     cylinderBF.position.x += -65;
     cylinderBF.position.y += 5;
@@ -393,7 +404,8 @@ function init() {
 
     //Body Head = BH
     const geometryBH = new THREE.SphereGeometry( 1, 32, 16 );
-    const materialBH = new THREE.MeshBasicMaterial( { color: 0x757c88 } );
+    const textureHeadBH = new THREE.TextureLoader();
+    const materialBH = new THREE.MeshBasicMaterial({map: textureHeadBH.load("textures/PlaneAce.jpg")});
     const headPlane = new THREE.Mesh( geometryBH, materialBH );
     headPlane.position.x = cylinderBF.position.x;
     headPlane.position.y = cylinderBF.position.y;
@@ -402,8 +414,10 @@ function init() {
 
     //Body Head Ace 1= BHA1
     const geometryBHA1 = new THREE.BoxGeometry( 6, 0.8, 0.1); 
-    const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-    const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialBHA1 );
+    //const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const textureHeadAce1 = new THREE.TextureLoader();
+    const materialAce1 = new THREE.MeshBasicMaterial({map: textureHeadAce1.load("textures/PlaneAce.jpg")});
+    const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialAce1 );
     cubeBHA1.position.x = headPlane.position.x;
     cubeBHA1.position.y = headPlane.position.y;
     cubeBHA1.position.z = headPlane.position.z;
@@ -411,8 +425,9 @@ function init() {
 
     //Body Head Ace 2= BHA2
     const geometryBHA2 = new THREE.BoxGeometry( 0.8, 6, 0.1); 
-    const materialBHA2 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-    const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialBHA2 );
+    const textureHeadAce2 = new THREE.TextureLoader();
+    const materialAce2 = new THREE.MeshBasicMaterial({map: textureHeadAce2.load("textures/PlaneAce.jpg")});
+    const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialAce2 );
     cubeBHA2.position.x = headPlane.position.x;
     cubeBHA2.position.y = headPlane.position.y;
     cubeBHA2.position.z = headPlane.position.z;
@@ -420,7 +435,8 @@ function init() {
 
     //Body plane = BP
     const geometryBP = new THREE.CylinderGeometry( 3, 3, 7, 32 );
-    const materialBP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureBP = new THREE.TextureLoader();
+    const materialBP = new THREE.MeshBasicMaterial({map: textureBP.load("textures/PlaneBluePaint.jpg")});
     const cylinderBP = new THREE.Mesh( geometryBP, materialBP );
     cylinderBP.position.x = cylinderBF.position.x;
     cylinderBP.position.y = cylinderBF.position.y;
@@ -431,7 +447,8 @@ function init() {
 
     //Tail Main Plane = TMP
     const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
-    const materialTMP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const textureTMP = new THREE.TextureLoader();
+    const materialTMP = new THREE.MeshBasicMaterial({map: textureTMP.load("textures/PlaneStand.jpg")});
     const cubeTMP = new THREE.Mesh( geometryTMP, materialTMP );
     cubeTMP.position.x = cylinderBF.position.x;
     cubeTMP.position.y += cylinderBF.position.y + 2;
@@ -440,7 +457,8 @@ function init() {
 
     //Tail Side Plane = TSP
     const geometryTSP = new THREE.BoxGeometry( 7, 0.1, 3 ); 
-    const materialTSP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const textureTSP = new THREE.TextureLoader();
+    const materialTSP = new THREE.MeshBasicMaterial({map: textureTSP.load("textures/PlaneStand.jpg")});
     const cubeTSP = new THREE.Mesh( geometryTSP, materialTSP );
     cubeTSP.position.x = cubeTMP.position.x;
     cubeTSP.position.y = cubeTMP.position.y - 3;
@@ -449,7 +467,8 @@ function init() {
 
     //Wing Plane = WP
     const geometryWP = new THREE.BoxGeometry( 10, 0.1, 3 ); 
-    const materialWP = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    const textureWP = new THREE.TextureLoader();
+    const materialWP = new THREE.MeshBasicMaterial({map: textureWP.load("textures/PlaneStand.jpg")});
     const cubeWP = new THREE.Mesh( geometryWP, materialWP );
     cubeWP.position.x = cylinderBF.position.x;
     cubeWP.position.y = cylinderBF.position.y + 1;
@@ -458,7 +477,8 @@ function init() {
 
     //Right Foot Plane = RFP
     const geometryRFP = new THREE.BoxGeometry( 2, 1, 10 ); 
-    const materialRFP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
+    const textureRFP = new THREE.TextureLoader();
+    const materialRFP = new THREE.MeshBasicMaterial({map: textureRFP.load("textures/PlaneBluePaint.jpg")});
     const cubeRFP= new THREE.Mesh( geometryRFP, materialRFP );
     cubeRFP.position.x = cylinderBF.position.x + 2;
     cubeRFP.position.y = cylinderBF.position.y - 4;
@@ -467,7 +487,8 @@ function init() {
 
     //Right Foot Tube Plane = RFTP
     const geometryRFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
-    const materialRFTP = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const textureRTFP = new THREE.TextureLoader();
+    const materialRFTP = new THREE.MeshBasicMaterial({map: textureRTFP.load("textures/PlaneStand.jpg")});
     const CubeRFTP = new THREE.Mesh(geometryRFTP, materialRFTP);
     CubeRFTP.position.y = cubeRFP.position.y + 1;
     CubeRFTP.position.x = cubeRFP.position.x;
@@ -477,8 +498,9 @@ function init() {
 
     //Left Foot Plane = LFP
     const geometryLFP = new THREE.BoxGeometry( 2, 1, 10 ); 
-    const materialLFP = new THREE.MeshBasicMaterial( {color: 0x63c5da} );
-    const cubeLFP = new THREE.Mesh( geometryLFP, materialLFP );
+    const textureLFP = new THREE.TextureLoader();
+    const materialLFP = new THREE.MeshBasicMaterial({map: textureLFP.load("textures/PlaneBluePaint.jpg")});
+    const cubeLFP= new THREE.Mesh( geometryLFP, materialLFP );
     cubeLFP.position.x = cylinderBF.position.x - 2;
     cubeLFP.position.y = cylinderBF.position.y - 4;
     cubeLFP.position.z = cylinderBF.position.z + 5;
@@ -486,7 +508,8 @@ function init() {
 
     //Left Foot Tube Plane = LFTP
     const geometryLFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
-    const materialLFTP = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const textureLTFP = new THREE.TextureLoader();
+    const materialLFTP = new THREE.MeshBasicMaterial({map: textureLTFP.load("textures/PlaneStand.jpg")});
     const CubeLFTP = new THREE.Mesh(geometryLFTP, materialLFTP);
     CubeLFTP.position.y = cubeLFP.position.y + 1;
     CubeLFTP.position.x = cubeLFP.position.x;
