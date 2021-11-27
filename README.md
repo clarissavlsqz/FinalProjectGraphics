@@ -30,3 +30,7 @@ A continuación vamos a detallar las características que queremos implementar p
 Después de haber hecho una breve investigación decidimos que las siguientes librerías son candidatas a usarse:
 - Three.js
 - Clay.gl
+
+## Modelos 3D
+- [Dodos Airlines by pratamacam is licensed under Creative Commons Attribution] (https://skfb.ly/6Spqq)
+- [Camping Tent] (https://www.models-resource.com/3ds/animalcrossingnewleaf/model/10421/)

@@ -51,38 +51,122 @@ function init() {
 
     // Set window size
     renderer.setSize(window.innerWidth, window.innerHeight);
+    //renderer.outputEncoding = sRGBEncoding;
+	//renderer.toneMapping = ACESFilmicToneMapping;
+	//renderer.toneMappingExposure = 0.5;
     document.body.appendChild(renderer.domElement);
 
-    
+    // create an AudioListener and add it to the camera
+    const listener = new THREE.AudioListener();
+    camera.add( listener );
+
+    // create a global audio source
+    const sound = new THREE.Audio( listener );
+
+    // load a sound and set it as the Audio object's buffer
+    /* const audioLoader = new THREE.AudioLoader();
+    audioLoader.load( 'audio/song.ogg', function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop( true );
+        sound.setVolume( 0.5 );
+        sound.play();
+    }); */
+
     // Set loader
-    /* var loader = new THREE.ColladaLoader();
-    loader.options.convertUpAxis = true; 
-    loader.load('models/StrcPlaneA00.dae',function colladaReady( collada ){
-        player = collada.scene;
-        player.scale.x = player.scale.y = player.scale.z = 10;
-        scene.add( player );
+    var loader = new THREE.ColladaLoader();
+    loader.load('models/StrcPlaneA00.Nin_NX_NVN/StrcPlaneA00.dae',function colladaReady( collada ){
+        seaplane = collada.scene;
+        seaplane.scale.x = seaplane.scale.y = seaplane.scale.z = 0.5;
+        //player_geometry = collada.scene.children[ 0 ].geometry;
+        //player_material = collada.scene.children[ 0 ].material;
+        seaplane.position.x = -72;
+        seaplane.position.z = 20;
+        seaplane.position.y = 5;
+        seaplane.rotation.y = -1.6;
+        scene.add( seaplane );
         });
 
-    var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load("models/hobj_tent_01.mtl", function (materials) {
-        materials.preload();
-        // Load the object
-        var objLoader = new THREE.OBJLoader();
-        objLoader.setMaterials(materials);
-        objLoader.load("models/hobj_tent_01.obj", function (object) {
-          scene.add(object);
-      
-          object.position.x = -3;
-          object.position.y = 0;
-          object.position.z = 60;
-      
-          object.rotation.x = 0;
-          object.rotation.y = 0;
-          object.rotation.z = 0;
-          car = object;
+        
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.load("models/dodo-airlines/source/DODO/DODO.mtl", function(
+          materials
+        ) {
+          materials.preload();
+          // Load the object
+          var objLoader = new THREE.OBJLoader();
+          objLoader.setMaterials(materials);
+          objLoader.load("models/dodo-airlines/source/DODO/DODO.obj", function(
+            object
+          ) {
+            scene.add(object);
+            object.position.x = -55;
+            object.position.y = 1;
+            object.position.z = 30;
+        
+            object.rotation.x = 0;
+            object.rotation.y = 1.556;
+            object.rotation.z = 0;
+
+            object.scale.multiplyScalar(2);
+
+            seaport = object;
+          });
         });
-      });
- */
+
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setMaterialOptions({side: THREE.DoubleSide}) ;
+        mtlLoader.load("models/tent/hobj_tent_01.mtl", function(
+          materials
+        ) {
+          materials.preload();
+          // Load the object
+          var objLoader = new THREE.OBJLoader();
+          objLoader.setMaterials(materials);
+          objLoader.load("models/tent/hobj_tent_01.obj", function(
+            object
+          ) {
+            scene.add(object);
+            object.position.x = -10;
+            object.position.y = 0;
+            object.position.z = -25;
+        
+            object.rotation.x = 0;
+            object.rotation.y = 0.5;
+            object.rotation.z = 0;
+
+            object.scale.multiplyScalar(2);
+
+            tent = object;
+          });
+        });
+
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setMaterialOptions({side: THREE.DoubleSide}) ;
+        mtlLoader.load("models/Present/fg_present.mtl", function(
+          materials
+        ) {
+          materials.preload();
+          // Load the object
+          var objLoader = new THREE.OBJLoader();
+          objLoader.setMaterials(materials);
+          objLoader.load("models/Present/fg_present.obj", function(
+            object
+          ) {
+            scene.add(object);
+            object.position.x = 0;
+            object.position.y = 9.5;
+            object.position.z = 0;
+        
+            object.rotation.x = 0;
+            object.rotation.y = 0
+            object.rotation.z = 0;
+
+            object.scale.multiplyScalar(0.1);
+
+            present = object;
+          });
+        });
+
 
 
     window.addEventListener('resize', function() {
@@ -92,9 +176,28 @@ function init() {
         camera.aspect = width/height;
         camera.updateProjectionMatrix;
     });
+    // Sky
+    const sky = new THREE.Sky();
+    sky.scale.setScalar(500);
+    scene.add(sky);
+
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    const sun = new THREE.Vector3();
+
+	// Defining the x, y and z value for our 3D Vector
+    const theta = Math.PI * (0.49 - 0.5);
+    const phi = 2 * Math.PI * (0.205 - 0.5);
+    sun.x = Math.cos(phi);
+    sun.y = Math.sin(phi) * Math.sin(theta);
+    sun.z = Math.sin(phi) * Math.cos(theta);
+
+    sky.material.uniforms['sunPosition'].value.copy(sun);
+    scene.environment = pmremGenerator.fromScene(sky).texture;
+    scene.add(sun);
+
 
     // Ocean
-    const oceanGeometry = new THREE.PlaneGeometry( 200, 200 );
+    const oceanGeometry = new THREE.PlaneGeometry( 500, 500 );
     ocean = new THREE.Water(
         oceanGeometry,
         {
@@ -105,6 +208,7 @@ function init() {
                 texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
             } ),
+            alpha: 1.0,
             sunDirection: new THREE.Vector3(),
             sunColor: 0xffffff,
             waterColor: 0x001e0f,
@@ -118,10 +222,10 @@ function init() {
     scene.add( ocean );
 
     // SkyDome
-    var skyBoxGeo = new THREE.BoxGeometry(200, 200, 200);
+    var skyBoxGeo = new THREE.BoxGeometry(500, 500, 500);
     skyBox = new THREE.Mesh(skyBoxGeo);
-    const materialArray = createMaterialArray(baseImageName);
-    skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
+    //const materialArray = createMaterialArray(baseImageName);
+    //skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
     scene.add(skyBox);
 
     // Clouds
@@ -204,14 +308,14 @@ function init() {
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
     const beach = new THREE.Mesh( geometryBeach, materialBeach );
     //beach.position.x += 15;
-    //beach.position.y -= 0.5;
+    beach.position.y -= 0.5;
     scene.add(beach);
 
-    var light1 = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(light1);
+     var light1 = new THREE.AmbientLight(0xffffff, 0.5);
+     scene.add(light1);
 
-    var light2 = new THREE.PointLight(0xffffff, 0.5);
-    scene.add(light2);
+    // var light2 = new THREE.PointLight(0xffffff, 0.5);
+    // scene.add(light2);
 
     // Rock - Change to MeshStandard if needed for light
     const geometryRock = new THREE.DodecahedronGeometry(10, 0);
@@ -241,16 +345,17 @@ function init() {
 
 
     // First Cube grass
-    const geometryPlane = new THREE.BoxGeometry(79,115);
+    const geometryPlane = new THREE.BoxGeometry(79,115, 3);
     geometryPlane.rotateX(4.7);
-    const textureGrass = new THREE.ImageUtils.loadTexture("textures/GameCube - Animal Crossing - Flooring.png");
+    const textureGrass = new THREE.TextureLoader().load("textures/ac-grass.png");
     textureGrass.wrapS = textureGrass.wrapT = THREE.RepeatWrapping; 
-	textureGrass.repeat.set( 10, 10 );
+	textureGrass.repeat.set( 15, 15 );
     //const materialGrass = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
     const materialPlane = new THREE.MeshBasicMaterial( {map: textureGrass});
     const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
     floor.position.x = beach.position.x + 14;
+    floor.position.y = -0.945;
 	scene.add(floor); 
 
     // River
@@ -280,11 +385,16 @@ function init() {
     scene.add(river);
 
     // Second Cube Grass
-    const geometryPlane2 = new THREE.BoxGeometry(20,115);
+    const geometryPlane2 = new THREE.BoxGeometry(20,115, 5);
     geometryPlane2.rotateX(4.7);
-    const floor2 = new THREE.Mesh(geometryPlane2, materialPlane);
+    const textureGrass2 = new THREE.TextureLoader().load("textures/ac-grass.png");
+    textureGrass2.wrapS = textureGrass2.wrapT = THREE.RepeatWrapping; 
+	textureGrass2.repeat.set( 3, 15 );
+    const materialPlane2 = new THREE.MeshBasicMaterial( {map: textureGrass2});
+    const floor2 = new THREE.Mesh(geometryPlane2, materialPlane2);
     floor2.material.side = THREE.DoubleSide;
     floor2.position.x = river.position.x - 14.5;
+    floor2.position.y = -1.5;
     scene.add(floor2);
 
     // Fossil Hole
@@ -293,7 +403,7 @@ function init() {
     const materialFossilHole = new THREE.MeshBasicMaterial({map: textureFossilHole.load("textures/muniticonholeoff_alb.png")});
     const fossilHole = new THREE.Mesh(geometryFossilHole, materialFossilHole);
     fossilHole.position.x = 20;
-    fossilHole.position.y = 0.55;
+    fossilHole.position.y = 0.58;
     fossilHole.rotation.x = Math.PI / 2;;
     fossilHole.material.side = THREE.DoubleSide;
     scene.add(fossilHole);
@@ -321,232 +431,232 @@ function init() {
 
 
     //Choza Dock Right = CDR
-    const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
-    const textureCDR = new THREE.TextureLoader();
-    const materialCDR = new THREE.MeshBasicMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
-    const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
-    cubeCDR.position.x += -50;
-    cubeCDR.position.y += 5;
-    cubeCDR.position.z += 20;
-    scene.add( cubeCDR );
+    // const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
+    // const textureCDR = new THREE.TextureLoader();
+    // const materialCDR = new THREE.MeshBasicMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
+    // const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
+    // cubeCDR.position.x += -50;
+    // cubeCDR.position.y += 5;
+    // cubeCDR.position.z += 20;
+    // scene.add( cubeCDR );
 
-    //Choza Dock  = CD
-    const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
-    const textureCD = new THREE.TextureLoader();
-    const materialCD = new THREE.MeshBasicMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
-    const cubeCD = new THREE.Mesh( geometryCD, materialCD );
-    cubeCD.position.x = cubeCDR.position.x;
-    cubeCD.position.y = cubeCDR.position.y - 4.5;
-    cubeCD.position.z = cubeCDR.position.z - 5 ;
-    scene.add( cubeCD );
+    // //Choza Dock  = CD
+    // const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
+    // const textureCD = new THREE.TextureLoader();
+    // const materialCD = new THREE.MeshBasicMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
+    // const cubeCD = new THREE.Mesh( geometryCD, materialCD );
+    // cubeCD.position.x = cubeCDR.position.x;
+    // cubeCD.position.y = cubeCDR.position.y - 4.5;
+    // cubeCD.position.z = cubeCDR.position.z - 5 ;
+    // scene.add( cubeCD );
 
-    //Choza Dock Up = CDU
-    const geometryCDU = new THREE.BoxGeometry( 9.5, 1, 9.3 ); 
-    const textureCDU = new THREE.TextureLoader();
-    const materialCDU = new THREE.MeshBasicMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
-    const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
-    cubeCDU.position.x = cubeCDR.position.x;
-    cubeCDU.position.y = cubeCDR.position.y + 4.5;
-    cubeCDU.position.z = cubeCDR.position.z - 5 ;
-    scene.add( cubeCDU );
+    // //Choza Dock Up = CDU
+    // const geometryCDU = new THREE.BoxGeometry( 9.5, 1, 9.3 ); 
+    // const textureCDU = new THREE.TextureLoader();
+    // const materialCDU = new THREE.MeshBasicMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
+    // const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
+    // cubeCDU.position.x = cubeCDR.position.x;
+    // cubeCDU.position.y = cubeCDR.position.y + 4.5;
+    // cubeCDU.position.z = cubeCDR.position.z - 5 ;
+    // scene.add( cubeCDU );
 
-    //Choza Dock Viewer = CDV
-    const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
-    const textureCDV = new THREE.TextureLoader();
-    const materialCDV = new THREE.MeshBasicMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
-    const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
-    cubeCDV.position.x = cubeCDR.position.x -2;
-    cubeCDV.position.y = cubeCDR.position.y + 5.5;
-    cubeCDV.position.z = cubeCDR.position.z - 3.5;
-    scene.add( cubeCDV );
+    // //Choza Dock Viewer = CDV
+    // const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
+    // const textureCDV = new THREE.TextureLoader();
+    // const materialCDV = new THREE.MeshBasicMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
+    // const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
+    // cubeCDV.position.x = cubeCDR.position.x -2;
+    // cubeCDV.position.y = cubeCDR.position.y + 5.5;
+    // cubeCDV.position.z = cubeCDR.position.z - 3.5;
+    // scene.add( cubeCDV );
 
-    //Choza Dock Viewer Cylinder = CDVC
-    const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
-    const textureCDVC = new THREE.TextureLoader();
-    const materialCDVC = new THREE.MeshBasicMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
-    const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
-    cylinderCDVC.position.x = cubeCDR.position.x -2;
-    cylinderCDVC.position.y = cubeCDR.position.y + 6;
-    cylinderCDVC.position.z = cubeCDR.position.z - 3.5;
-    cylinderCDVC.rotateY(Math.PI / 4);
-    scene.add( cylinderCDVC );
+    // //Choza Dock Viewer Cylinder = CDVC
+    // const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
+    // const textureCDVC = new THREE.TextureLoader();
+    // const materialCDVC = new THREE.MeshBasicMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
+    // const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
+    // cylinderCDVC.position.x = cubeCDR.position.x -2;
+    // cylinderCDVC.position.y = cubeCDR.position.y + 6;
+    // cylinderCDVC.position.z = cubeCDR.position.z - 3.5;
+    // cylinderCDVC.rotateY(Math.PI / 4);
+    // scene.add( cylinderCDVC );
 
-    //Choza Dock Left  = CDL
-    const geometryCDL = new THREE.BoxGeometry( 7, 10, 1 ); 
-    const textureCDL = new THREE.TextureLoader();
-    const materialCDL = new THREE.MeshBasicMaterial({map: textureCDL.load("textures/DockBluePaint.jpg")});
-    const cubeCDL = new THREE.Mesh( geometryCDL, materialCDL );
-    cubeCDL.position.x = cubeCDR.position.x + 1.5;
-    cubeCDL.position.y = cubeCDR.position.y;
-    cubeCDL.position.z = cubeCDR.position.z - 10;
-    scene.add( cubeCDL );
+    // //Choza Dock Left  = CDL
+    // const geometryCDL = new THREE.BoxGeometry( 7, 10, 1 ); 
+    // const textureCDL = new THREE.TextureLoader();
+    // const materialCDL = new THREE.MeshBasicMaterial({map: textureCDL.load("textures/DockBluePaint.jpg")});
+    // const cubeCDL = new THREE.Mesh( geometryCDL, materialCDL );
+    // cubeCDL.position.x = cubeCDR.position.x + 1.5;
+    // cubeCDL.position.y = cubeCDR.position.y;
+    // cubeCDL.position.z = cubeCDR.position.z - 10;
+    // scene.add( cubeCDL );
 
-    //Choza Dock Back = CDB
-    const geometryCDB = new THREE.BoxGeometry( 1, 10, 10 ); 
-    const textureCDB = new THREE.TextureLoader();
-    const materialCDB = new THREE.MeshBasicMaterial({map: textureCDB.load("textures/DockBluePaint.jpg")});
-    const cubeCDB = new THREE.Mesh( geometryCDB, materialCDB );
-    cubeCDB.position.x = cubeCDR.position.x + 4.5;
-    cubeCDB.position.y = cubeCDR.position.y;
-    cubeCDB.position.z = cubeCDR.position.z - 5;
-    scene.add( cubeCDB );
+    // //Choza Dock Back = CDB
+    // const geometryCDB = new THREE.BoxGeometry( 1, 10, 10 ); 
+    // const textureCDB = new THREE.TextureLoader();
+    // const materialCDB = new THREE.MeshBasicMaterial({map: textureCDB.load("textures/DockBluePaint.jpg")});
+    // const cubeCDB = new THREE.Mesh( geometryCDB, materialCDB );
+    // cubeCDB.position.x = cubeCDR.position.x + 4.5;
+    // cubeCDB.position.y = cubeCDR.position.y;
+    // cubeCDB.position.z = cubeCDR.position.z - 5;
+    // scene.add( cubeCDB );
 
-    //Choza Dock Front = CDF
-    const geometryCDF = new THREE.BoxGeometry( 1, 10, 7 ); 
-    const textureCDF = new THREE.TextureLoader();
-    const materialCDF = new THREE.MeshBasicMaterial({map: textureCDF.load("textures/DockBluePaint.jpg")});
-    const cubeCDF = new THREE.Mesh( geometryCDF, materialCDF );
-    cubeCDF.position.x = cubeCDR.position.x - 5;
-    cubeCDF.position.y = cubeCDR.position.y;
-    cubeCDF.position.z = cubeCDR.position.z - 3;
-    scene.add( cubeCDF );
+    // //Choza Dock Front = CDF
+    // const geometryCDF = new THREE.BoxGeometry( 1, 10, 7 ); 
+    // const textureCDF = new THREE.TextureLoader();
+    // const materialCDF = new THREE.MeshBasicMaterial({map: textureCDF.load("textures/DockBluePaint.jpg")});
+    // const cubeCDF = new THREE.Mesh( geometryCDF, materialCDF );
+    // cubeCDF.position.x = cubeCDR.position.x - 5;
+    // cubeCDF.position.y = cubeCDR.position.y;
+    // cubeCDF.position.z = cubeCDR.position.z - 3;
+    // scene.add( cubeCDF );
 
-    //Ventana Dock Front= VDF
-    const geometryVDF = new THREE.BoxGeometry( 1, 3, 2 ); 
-    const textureVDF = new THREE.TextureLoader();
-    const materialVDF = new THREE.MeshBasicMaterial({map: textureVDF.load("textures/Window.jpg")});
-    const cubeVDF = new THREE.Mesh( geometryVDF, materialVDF );
-    cubeVDF.position.x = cubeCDR.position.x - 5.5;
-    cubeVDF.position.y = cubeCDR.position.y;
-    cubeVDF.position.z = cubeCDR.position.z - 3;
-    scene.add( cubeVDF );
+    // //Ventana Dock Front= VDF
+    // const geometryVDF = new THREE.BoxGeometry( 1, 3, 2 ); 
+    // const textureVDF = new THREE.TextureLoader();
+    // const materialVDF = new THREE.MeshBasicMaterial({map: textureVDF.load("textures/Window.jpg")});
+    // const cubeVDF = new THREE.Mesh( geometryVDF, materialVDF );
+    // cubeVDF.position.x = cubeCDR.position.x - 5.5;
+    // cubeVDF.position.y = cubeCDR.position.y;
+    // cubeVDF.position.z = cubeCDR.position.z - 3;
+    // scene.add( cubeVDF );
 
-    //Ventana Dock Left= VDL
-    const geometryVDL = new THREE.BoxGeometry( 2, 3, 1 ); 
-    const textureVDL = new THREE.TextureLoader();
-    const materialVDL = new THREE.MeshBasicMaterial({map: textureVDL.load("textures/Window.jpg")});
-    const cubeVDL = new THREE.Mesh( geometryVDL, materialVDL );
-    cubeVDL.position.x = cubeCDR.position.x;
-    cubeVDL.position.y = cubeCDR.position.y;
-    cubeVDL.position.z = cubeCDR.position.z - 10.5;
-    scene.add( cubeVDL );
+    // //Ventana Dock Left= VDL
+    // const geometryVDL = new THREE.BoxGeometry( 2, 3, 1 ); 
+    // const textureVDL = new THREE.TextureLoader();
+    // const materialVDL = new THREE.MeshBasicMaterial({map: textureVDL.load("textures/Window.jpg")});
+    // const cubeVDL = new THREE.Mesh( geometryVDL, materialVDL );
+    // cubeVDL.position.x = cubeCDR.position.x;
+    // cubeVDL.position.y = cubeCDR.position.y;
+    // cubeVDL.position.z = cubeCDR.position.z - 10.5;
+    // scene.add( cubeVDL );
 
     //Body Front = BF
-    const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
-    const textureBF = new THREE.TextureLoader();
-    const materialBF = new THREE.MeshBasicMaterial({map: textureBF.load("textures/PlaneBluePaint.jpg")});
-    const cylinderBF = new THREE.Mesh( geometryBF, materialBF );
-    cylinderBF.position.x += -65;
-    cylinderBF.position.y += 5;
-    cylinderBF.position.z += 20;
-    cylinderBF.rotateZ(Math.PI / 2);
-    cylinderBF.rotateX(Math.PI / 2);
-    scene.add( cylinderBF );
+    // const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
+    // const textureBF = new THREE.TextureLoader();
+    // const materialBF = new THREE.MeshBasicMaterial({map: textureBF.load("textures/PlaneBluePaint.jpg")});
+    // const cylinderBF = new THREE.Mesh( geometryBF, materialBF );
+    // cylinderBF.position.x += -65;
+    // cylinderBF.position.y += 5;
+    // cylinderBF.position.z += 20;
+    // cylinderBF.rotateZ(Math.PI / 2);
+    // cylinderBF.rotateX(Math.PI / 2);
+    // scene.add( cylinderBF );
 
-    //Body Head = BH
-    const geometryBH = new THREE.SphereGeometry( 1, 32, 16 );
-    const textureHeadBH = new THREE.TextureLoader();
-    const materialBH = new THREE.MeshBasicMaterial({map: textureHeadBH.load("textures/PlaneAce.jpg")});
-    const headPlane = new THREE.Mesh( geometryBH, materialBH );
-    headPlane.position.x = cylinderBF.position.x;
-    headPlane.position.y = cylinderBF.position.y;
-    headPlane.position.z = cylinderBF.position.z-2;
-    scene.add( headPlane ); 
+    // //Body Head = BH
+    // const geometryBH = new THREE.SphereGeometry( 1, 32, 16 );
+    // const textureHeadBH = new THREE.TextureLoader();
+    // const materialBH = new THREE.MeshBasicMaterial({map: textureHeadBH.load("textures/PlaneAce.jpg")});
+    // const headPlane = new THREE.Mesh( geometryBH, materialBH );
+    // headPlane.position.x = cylinderBF.position.x;
+    // headPlane.position.y = cylinderBF.position.y;
+    // headPlane.position.z = cylinderBF.position.z-2;
+    // scene.add( headPlane ); 
 
-    //Body Head Ace 1= BHA1
-    const geometryBHA1 = new THREE.BoxGeometry( 6, 0.8, 0.1); 
-    //const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-    const textureHeadAce1 = new THREE.TextureLoader();
-    const materialAce1 = new THREE.MeshBasicMaterial({map: textureHeadAce1.load("textures/PlaneAce.jpg")});
-    const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialAce1 );
-    cubeBHA1.position.x = headPlane.position.x;
-    cubeBHA1.position.y = headPlane.position.y;
-    cubeBHA1.position.z = headPlane.position.z;
-    scene.add( cubeBHA1 );
+    // //Body Head Ace 1= BHA1
+    // const geometryBHA1 = new THREE.BoxGeometry( 6, 0.8, 0.1); 
+    // //const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    // const textureHeadAce1 = new THREE.TextureLoader();
+    // const materialAce1 = new THREE.MeshBasicMaterial({map: textureHeadAce1.load("textures/PlaneAce.jpg")});
+    // const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialAce1 );
+    // cubeBHA1.position.x = headPlane.position.x;
+    // cubeBHA1.position.y = headPlane.position.y;
+    // cubeBHA1.position.z = headPlane.position.z;
+    // scene.add( cubeBHA1 );
 
-    //Body Head Ace 2= BHA2
-    const geometryBHA2 = new THREE.BoxGeometry( 0.8, 6, 0.1); 
-    const textureHeadAce2 = new THREE.TextureLoader();
-    const materialAce2 = new THREE.MeshBasicMaterial({map: textureHeadAce2.load("textures/PlaneAce.jpg")});
-    const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialAce2 );
-    cubeBHA2.position.x = headPlane.position.x;
-    cubeBHA2.position.y = headPlane.position.y;
-    cubeBHA2.position.z = headPlane.position.z;
-    scene.add( cubeBHA2 );
+    // //Body Head Ace 2= BHA2
+    // const geometryBHA2 = new THREE.BoxGeometry( 0.8, 6, 0.1); 
+    // const textureHeadAce2 = new THREE.TextureLoader();
+    // const materialAce2 = new THREE.MeshBasicMaterial({map: textureHeadAce2.load("textures/PlaneAce.jpg")});
+    // const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialAce2 );
+    // cubeBHA2.position.x = headPlane.position.x;
+    // cubeBHA2.position.y = headPlane.position.y;
+    // cubeBHA2.position.z = headPlane.position.z;
+    // scene.add( cubeBHA2 );
 
-    //Body plane = BP
-    const geometryBP = new THREE.CylinderGeometry( 3, 3, 7, 32 );
-    const textureBP = new THREE.TextureLoader();
-    const materialBP = new THREE.MeshBasicMaterial({map: textureBP.load("textures/PlaneBluePaint.jpg")});
-    const cylinderBP = new THREE.Mesh( geometryBP, materialBP );
-    cylinderBP.position.x = cylinderBF.position.x;
-    cylinderBP.position.y = cylinderBF.position.y;
-    cylinderBP.position.z = cylinderBF.position.z + 5;
-    cylinderBP.rotateZ(Math.PI / 2);
-    cylinderBP.rotateX(Math.PI / 2);
-    scene.add( cylinderBP );
+    // //Body plane = BP
+    // const geometryBP = new THREE.CylinderGeometry( 3, 3, 7, 32 );
+    // const textureBP = new THREE.TextureLoader();
+    // const materialBP = new THREE.MeshBasicMaterial({map: textureBP.load("textures/PlaneBluePaint.jpg")});
+    // const cylinderBP = new THREE.Mesh( geometryBP, materialBP );
+    // cylinderBP.position.x = cylinderBF.position.x;
+    // cylinderBP.position.y = cylinderBF.position.y;
+    // cylinderBP.position.z = cylinderBF.position.z + 5;
+    // cylinderBP.rotateZ(Math.PI / 2);
+    // cylinderBP.rotateX(Math.PI / 2);
+    // scene.add( cylinderBP );
 
-    //Tail Main Plane = TMP
-    const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
-    const textureTMP = new THREE.TextureLoader();
-    const materialTMP = new THREE.MeshBasicMaterial({map: textureTMP.load("textures/PlaneStand.jpg")});
-    const cubeTMP = new THREE.Mesh( geometryTMP, materialTMP );
-    cubeTMP.position.x = cylinderBF.position.x;
-    cubeTMP.position.y += cylinderBF.position.y + 2;
-    cubeTMP.position.z += cylinderBF.position.z + 8.5;
-    scene.add( cubeTMP );
+    // //Tail Main Plane = TMP
+    // const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
+    // const textureTMP = new THREE.TextureLoader();
+    // const materialTMP = new THREE.MeshBasicMaterial({map: textureTMP.load("textures/PlaneStand.jpg")});
+    // const cubeTMP = new THREE.Mesh( geometryTMP, materialTMP );
+    // cubeTMP.position.x = cylinderBF.position.x;
+    // cubeTMP.position.y += cylinderBF.position.y + 2;
+    // cubeTMP.position.z += cylinderBF.position.z + 8.5;
+    // scene.add( cubeTMP );
 
-    //Tail Side Plane = TSP
-    const geometryTSP = new THREE.BoxGeometry( 7, 0.1, 3 ); 
-    const textureTSP = new THREE.TextureLoader();
-    const materialTSP = new THREE.MeshBasicMaterial({map: textureTSP.load("textures/PlaneStand.jpg")});
-    const cubeTSP = new THREE.Mesh( geometryTSP, materialTSP );
-    cubeTSP.position.x = cubeTMP.position.x;
-    cubeTSP.position.y = cubeTMP.position.y - 3;
-    cubeTSP.position.z = cubeTMP.position.z;
-    scene.add( cubeTSP );
+    // //Tail Side Plane = TSP
+    // const geometryTSP = new THREE.BoxGeometry( 7, 0.1, 3 ); 
+    // const textureTSP = new THREE.TextureLoader();
+    // const materialTSP = new THREE.MeshBasicMaterial({map: textureTSP.load("textures/PlaneStand.jpg")});
+    // const cubeTSP = new THREE.Mesh( geometryTSP, materialTSP );
+    // cubeTSP.position.x = cubeTMP.position.x;
+    // cubeTSP.position.y = cubeTMP.position.y - 3;
+    // cubeTSP.position.z = cubeTMP.position.z;
+    // scene.add( cubeTSP );
 
-    //Wing Plane = WP
-    const geometryWP = new THREE.BoxGeometry( 10, 0.1, 3 ); 
-    const textureWP = new THREE.TextureLoader();
-    const materialWP = new THREE.MeshBasicMaterial({map: textureWP.load("textures/PlaneStand.jpg")});
-    const cubeWP = new THREE.Mesh( geometryWP, materialWP );
-    cubeWP.position.x = cylinderBF.position.x;
-    cubeWP.position.y = cylinderBF.position.y + 1;
-    cubeWP.position.z = cylinderBF.position.z + 5;
-    scene.add( cubeWP );
+    // //Wing Plane = WP
+    // const geometryWP = new THREE.BoxGeometry( 10, 0.1, 3 ); 
+    // const textureWP = new THREE.TextureLoader();
+    // const materialWP = new THREE.MeshBasicMaterial({map: textureWP.load("textures/PlaneStand.jpg")});
+    // const cubeWP = new THREE.Mesh( geometryWP, materialWP );
+    // cubeWP.position.x = cylinderBF.position.x;
+    // cubeWP.position.y = cylinderBF.position.y + 1;
+    // cubeWP.position.z = cylinderBF.position.z + 5;
+    // scene.add( cubeWP );
 
-    //Right Foot Plane = RFP
-    const geometryRFP = new THREE.BoxGeometry( 2, 1, 10 ); 
-    const textureRFP = new THREE.TextureLoader();
-    const materialRFP = new THREE.MeshBasicMaterial({map: textureRFP.load("textures/PlaneBluePaint.jpg")});
-    const cubeRFP= new THREE.Mesh( geometryRFP, materialRFP );
-    cubeRFP.position.x = cylinderBF.position.x + 2;
-    cubeRFP.position.y = cylinderBF.position.y - 4;
-    cubeRFP.position.z = cylinderBF.position.z + 5;
-    scene.add( cubeRFP );
+    // //Right Foot Plane = RFP
+    // const geometryRFP = new THREE.BoxGeometry( 2, 1, 10 ); 
+    // const textureRFP = new THREE.TextureLoader();
+    // const materialRFP = new THREE.MeshBasicMaterial({map: textureRFP.load("textures/PlaneBluePaint.jpg")});
+    // const cubeRFP= new THREE.Mesh( geometryRFP, materialRFP );
+    // cubeRFP.position.x = cylinderBF.position.x + 2;
+    // cubeRFP.position.y = cylinderBF.position.y - 4;
+    // cubeRFP.position.z = cylinderBF.position.z + 5;
+    // scene.add( cubeRFP );
 
-    //Right Foot Tube Plane = RFTP
-    const geometryRFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
-    const textureRTFP = new THREE.TextureLoader();
-    const materialRFTP = new THREE.MeshBasicMaterial({map: textureRTFP.load("textures/PlaneStand.jpg")});
-    const CubeRFTP = new THREE.Mesh(geometryRFTP, materialRFTP);
-    CubeRFTP.position.y = cubeRFP.position.y + 1;
-    CubeRFTP.position.x = cubeRFP.position.x;
-    CubeRFTP.position.z = cubeRFP.position.z;
-    CubeRFTP.rotateZ(Math.PI / 4);
-    scene.add(CubeRFTP);
+    // //Right Foot Tube Plane = RFTP
+    // const geometryRFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
+    // const textureRTFP = new THREE.TextureLoader();
+    // const materialRFTP = new THREE.MeshBasicMaterial({map: textureRTFP.load("textures/PlaneStand.jpg")});
+    // const CubeRFTP = new THREE.Mesh(geometryRFTP, materialRFTP);
+    // CubeRFTP.position.y = cubeRFP.position.y + 1;
+    // CubeRFTP.position.x = cubeRFP.position.x;
+    // CubeRFTP.position.z = cubeRFP.position.z;
+    // CubeRFTP.rotateZ(Math.PI / 4);
+    // scene.add(CubeRFTP);
 
-    //Left Foot Plane = LFP
-    const geometryLFP = new THREE.BoxGeometry( 2, 1, 10 ); 
-    const textureLFP = new THREE.TextureLoader();
-    const materialLFP = new THREE.MeshBasicMaterial({map: textureLFP.load("textures/PlaneBluePaint.jpg")});
-    const cubeLFP= new THREE.Mesh( geometryLFP, materialLFP );
-    cubeLFP.position.x = cylinderBF.position.x - 2;
-    cubeLFP.position.y = cylinderBF.position.y - 4;
-    cubeLFP.position.z = cylinderBF.position.z + 5;
-    scene.add( cubeLFP );
+    // //Left Foot Plane = LFP
+    // const geometryLFP = new THREE.BoxGeometry( 2, 1, 10 ); 
+    // const textureLFP = new THREE.TextureLoader();
+    // const materialLFP = new THREE.MeshBasicMaterial({map: textureLFP.load("textures/PlaneBluePaint.jpg")});
+    // const cubeLFP= new THREE.Mesh( geometryLFP, materialLFP );
+    // cubeLFP.position.x = cylinderBF.position.x - 2;
+    // cubeLFP.position.y = cylinderBF.position.y - 4;
+    // cubeLFP.position.z = cylinderBF.position.z + 5;
+    // scene.add( cubeLFP );
 
-    //Left Foot Tube Plane = LFTP
-    const geometryLFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
-    const textureLTFP = new THREE.TextureLoader();
-    const materialLFTP = new THREE.MeshBasicMaterial({map: textureLTFP.load("textures/PlaneStand.jpg")});
-    const CubeLFTP = new THREE.Mesh(geometryLFTP, materialLFTP);
-    CubeLFTP.position.y = cubeLFP.position.y + 1;
-    CubeLFTP.position.x = cubeLFP.position.x;
-    CubeLFTP.position.z = cubeLFP.position.z;
-    CubeLFTP.rotateZ(3 * Math.PI / 4);
-    scene.add(CubeLFTP);
+    // //Left Foot Tube Plane = LFTP
+    // const geometryLFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
+    // const textureLTFP = new THREE.TextureLoader();
+    // const materialLFTP = new THREE.MeshBasicMaterial({map: textureLTFP.load("textures/PlaneStand.jpg")});
+    // const CubeLFTP = new THREE.Mesh(geometryLFTP, materialLFTP);
+    // CubeLFTP.position.y = cubeLFP.position.y + 1;
+    // CubeLFTP.position.x = cubeLFP.position.x;
+    // CubeLFTP.position.z = cubeLFP.position.z;
+    // CubeLFTP.rotateZ(3 * Math.PI / 4);
+    // scene.add(CubeLFTP);
 
     // Trunk
     const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
@@ -771,12 +881,12 @@ function init() {
     scene.add(leftFoot);
 
     // GiftBox
-    const giftBoxGeo = new THREE.BoxGeometry();
-    const giftTexture = new THREE.TextureLoader();
-    const materialGiftBox = new THREE.MeshBasicMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
-    const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
-    giftBox.position.y += 10;
-	scene.add(giftBox);
+    // const giftBoxGeo = new THREE.BoxGeometry();
+    // const giftTexture = new THREE.TextureLoader();
+    // const materialGiftBox = new THREE.MeshBasicMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
+    // const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
+    // giftBox.position.y += 10;
+	// scene.add(giftBox);
 
     // Line between box and balloon
     const materialLine = new THREE.LineBasicMaterial({
@@ -959,6 +1069,7 @@ function animate() {
    // skyBox.rotation.x += 0.005;
     //skyBox.rotation.y += 0.005;
     renderer.render(scene, camera);
+    render();
     controls.update();
 }
 // Make the scene persisten when resize the window
@@ -967,5 +1078,12 @@ function animate() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 } */
+
+function render() {
+    water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
+    renderer.render( scene, camera );
+
+}
+
 init();
 animate();
