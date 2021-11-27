@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset />
+  <library_images>
+    <image id="mDokudami_Alb">
+      <init_from>mDokudami_Alb.png</init_from>
+    </image>
+    <image id="mDokudami_Mix">
+      <init_from>mDokudami_Mix.png</init_from>
+    </image>
+    <image id="mDokudami_Nrm">
+      <init_from>mDokudami_Nrm.png</init_from>
+    </image>
+    <image id="mDokudami_OP">
+      <init_from>mDokudami_OP.png</init_from>
+    </image>
+    <image id="mEnokorogusa_Alb">
+      <init_from>mEnokorogusa_Alb.png</init_from>
+    </image>
+    <image id="mEnokorogusa_Mix">
+      <init_from>mEnokorogusa_Mix.png</init_from>
+    </image>
+    <image id="mEnokorogusa_Nrm">
+      <init_from>mEnokorogusa_Nrm.png</init_from>
+    </image>
+    <image id="mEnokorogusa_OP">
+      <init_from>mEnokorogusa_OP.png</init_from>
+    </image>
+    <image id="mHahakogusa_Alb">
+      <init_from>mHahakogusa_Alb.png</init_from>
+    </image>
+    <image id="mHahakogusa_Mix">
+      <init_from>mHahakogusa_Mix.png</init_from>
+    </image>
+    <image id="mHahakogusa_Nrm">
+      <init_from>mHahakogusa_Nrm.png</init_from>
+    </image>
+    <image id="mHahakogusa_OP">
+      <init_from>mHahakogusa_OP.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="mDokudami">
+      <instance_effect url="#Effect_mDokudami" />
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="Effect_mDokudami">
+      <profile_COMMON>
+        <newparam sid="surface_mDokudami-diffuse">
+          <surface type="2D">
+            <init_from>mDokudami_Alb</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="sampler_mDokudami-diffuse">
+          <sampler2D>
+            <source>surface_mDokudami-diffuse</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+          </sampler2D>
+        </newparam>
+        <newparam sid="surface_mDokudami-bump">
+          <surface type="2D">
+            <init_from>mDokudami_Nrm</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="sampler_mDokudami-bump">
+          <sampler2D>
+            <source>surface_mDokudami-bump</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+          </sampler2D>
+        </newparam>
+        <newparam sid="surface_mDokudami-specular">
+          <surface type="2D">
+            <init_from>mDokudami_Mix</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="sampler_mDokudami-specular">
+          <sampler2D>
+            <source>surface_mDokudami-specular</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <diffuse>
+              <texture texture="sampler_mDokudami-diffuse" texcoord="CHANNEL0" />
+            </diffuse>
+            <bump>
+              <texture texture="sampler_mDokudami-bump" texcoord="CHANNEL0" />
+            </bump>
+            <specular>
+              <texture texture="sampler_mDokudami-specular" texcoord="CHANNEL0" />
+            </specular>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh" name="PltWeedAut1A_Ohinu_pPlane11__mDokudami">
+      <mesh>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-position">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-position-array" count="48">-0.8785045 0.6039606 1.471712 -0.3097844 0.6039606 3.60279 1.60754 0 0.8082625 2.17626 0 2.93934 1.60754 0 0.8082625 2.17626 0 2.93934 4.093585 0.6039606 0.1448125 4.662305 0.6039606 2.27589 -4.043773 0.4941496 -3.352126 -4.338478 0.4941496 -1.571722 -1.964572 0 -3.007962 -2.259277 0 -1.227557 -1.964572 0 -3.007962 -2.259277 0 -1.227557 0.114629 0.4941496 -2.663797 -0.1800764 0.4941496 -0.883393</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-position-array" count="16" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-normal">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-normal-array" count="48">0.221135 0.9726027 -0.05870841 0.221135 0.9726027 -0.05870841 0.221135 0.9726027 -0.05870841 0.221135 0.9726027 -0.05870841 -0.221135 0.9726027 0.05870841 -0.221135 0.9726027 0.05870841 -0.221135 0.9726027 0.05870841 -0.221135 0.9726027 0.05870841 0.2250489 0.9745597 0.037182 0.2250489 0.9745597 0.037182 0.2250489 0.9745597 0.037182 0.2250489 0.9745597 0.037182 -0.2250489 0.9745597 -0.037182 -0.2250489 0.9745597 -0.037182 -0.2250489 0.9745597 -0.037182 -0.2250489 0.9745597 -0.037182</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-normal-array" count="16" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-color">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-color-array" count="64">1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 1.899414 0 1.899414 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5 -2.099609 0 -2.099609 0.5</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-color-array" count="16" stride="4">
+              <param name="R" type="float" />
+              <param name="G" type="float" />
+              <param name="B" type="float" />
+              <param name="A" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-texcoord">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-texcoord-array" count="32">0.4743797 1.005676 0.02563555 1.005676 0.4745018 0.484817 0.02548296 0.484817 0.02548296 0.484817 0.4745018 0.484817 0.02563555 1.005676 0.4743797 1.005676 0.4743797 1.006195 0.02563555 1.006195 0.4745018 0.484817 0.02548296 0.484817 0.02548296 0.484817 0.4745018 0.484817 0.02563555 1.006195 0.4743797 1.006195</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-texcoord-array" count="16" stride="2">
+              <param name="S" type="float" />
+              <param name="T" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-vertex">
+          <input semantic="POSITION" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-position" />
+        </vertices>
+        <triangles material="mDokudami" count="8">
+          <input semantic="VERTEX" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-vertex" offset="0" />
+          <input semantic="NORMAL" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-normal" offset="1" />
+          <input semantic="COLOR" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-color" offset="2" set="0" />
+          <input semantic="TEXCOORD" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-texcoord" offset="3" set="0" />
+          <p>0 0 0 0 1 1 1 1 2 2 2 2 1 1 1 1 3 3 3 3 2 2 2 2 4 4 4 4 5 5 5 5 6 6 6 6 5 5 5 5 7 7 7 7 6 6 6 6 8 8 8 8 9 9 9 9 10 10 10 10 9 9 9 9 11 11 11 11 10 10 10 10 12 12 12 12 13 13 13 13 14 14 14 14 13 13 13 13 15 15 15 15 14 14 14 14 </p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+    <controller id="Armature_PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh">
+      <skin source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh">
+        <bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-joint">
+          <Name_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-joint-array" count="1">Root</Name_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-joint-array" count="1" stride="1">
+              <param name="JOINT" type="name" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-inv_bind_matrix">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-inv_bind_matrix-array" count="16">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-inv_bind_matrix-array" count="1" stride="16">
+              <param name="TRANSFORM" type="float4x4" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-weight">
+          <float_array id="PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-weight-array" count="1">1</float_array>
+          <technique_common>
+            <accessor source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-weight-array" count="1" stride="1">
+              <param name="WEIGHT" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-joint" />
+          <input semantic="INV_BIND_MATRIX" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-inv_bind_matrix" />
+        </joints>
+        <vertex_weights count="16">
+          <input semantic="JOINT" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-joint" offset="0" />
+          <input semantic="WEIGHT" source="#PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh-weight" offset="1" />
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+          <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Armature" name="Armature" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <node id="Armature_Root" name="Root" sid="Root" type="JOINT">
+          <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        </node>
+      </node>
+      <node id="PltWeedAut1A_Ohinu_pPlane11__mDokudami" name="PltWeedAut1A_Ohinu_pPlane11__mDokudami" type="NODE">
+        <instance_controller url="#Armature_PltWeedAut1A_Ohinu_pPlane11__mDokudami-mesh">
+          <skeleton>#Armature_Root</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="mDokudami" target="#mDokudami" />
+              <bind_vertex_input semantic="CHANNEL0" input_semantic="TEXCOORD" input_set="0" />
+              <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="1" />
+              <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="2" />
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene" />
+  </scene>
+</COLLADA>
