@@ -21,8 +21,6 @@ A continuación vamos a detallar las características que queremos implementar p
 
 - La escena debe de incluir playa y tierra a la vez
 - Debe de haber una tienda de acampar
-- En el cielo, las nubes se tienen que mover
-- Hacer que los arboles se muevan un poquito, como si hubiera viento
 - El agua del oceano se tiene que mover
 - Debe de haber un monito con el cual el usuario pueda interactuar
 
@@ -34,3 +32,4 @@ Después de haber hecho una breve investigación decidimos que las siguientes li
 ## Modelos 3D
 - [Dodos Airlines by pratamacam is licensed under Creative Commons Attribution] (https://skfb.ly/6Spqq)
 - [Camping Tent] (https://www.models-resource.com/3ds/animalcrossingnewleaf/model/10421/)
+- Dodo Seaplane (https://archive.org/details/acnh-2.0.0-models)
