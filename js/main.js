@@ -65,13 +65,13 @@ function init() {
     const sound = new THREE.Audio( listener );
 
     // load a sound and set it as the Audio object's buffer
-    /* const audioLoader = new THREE.AudioLoader();
+    const audioLoader = new THREE.AudioLoader();
     audioLoader.load( 'audio/song.ogg', function( buffer ) {
         sound.setBuffer( buffer );
         sound.setLoop( true );
         sound.setVolume( 0.5 );
         sound.play();
-    }); */
+    })
 
     // LOAD 3D MODELS
     // Set loader
@@ -265,13 +265,6 @@ function init() {
     ocean.receiveShadow = true;
     scene.add( ocean );
 
-    // Defining the x, y and z value for our 3D Vector
-    const theta = Math.PI * (0.49 - 0.5);
-    const phi = 2 * Math.PI * (0.205 - 0.5);
-    sun.x = Math.cos(phi);
-    sun.y = Math.sin(phi) * Math.sin(theta);
-    sun.z = Math.sin(phi) * Math.cos(theta);
-
     sky.material.uniforms['sunPosition'].value.copy(sun);
     ocean.material.uniforms[ 'sunDirection' ].value.copy( sun ).normalize();
     scene.environment = pmremGenerator.fromScene(sky).texture;
@@ -423,8 +416,7 @@ function init() {
     // River
     const geometryRiver = new THREE.BoxGeometry(9,131);
     geometryRiver.rotateX(4.7);
-    //const materialRiver = new THREE.MeshLambertMaterial ( {color: 0x0D64A3} );
-    const river = new THREE.Water(
+    river = new THREE.Water(
         geometryRiver,
         {
             textureWidth: 512,
@@ -831,14 +823,6 @@ function init() {
     character.add(leftFoot);
     scene.add(character);
 
-    // GiftBox
-    // const giftBoxGeo = new THREE.BoxGeometry();
-    // const giftTexture = new THREE.TextureLoader();
-    // const materialGiftBox = new THREE.MeshLambertMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
-    // const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
-    // giftBox.position.y += 10;
-	// scene.add(giftBox);
-
     // Line between box and balloon
     const materialLine = new THREE.LineBasicMaterial({
         color: 0x000000,
@@ -1067,7 +1051,6 @@ function render() {
 		tent.scale.z = 3-(3*t/6.0);    
     }
 
-    water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
     renderer.render( scene, camera );
 
 }
