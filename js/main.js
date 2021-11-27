@@ -1043,13 +1043,15 @@ function render() {
     
     if (t >= 6.0) {
         clock = new THREE.Clock;
+        //present.position.z = -50;
         tent.scale.set(3,3,3);
 
     } else {
         tent.scale.x = 3-(3*t/6.0);
     	tent.scale.y = 3-(3*t/6.0);
-		tent.scale.z = 3-(3*t/6.0);    
-    }
+		tent.scale.z = 3-(3*t/6.0);
+        //present.translateZ(t);  
+    } 
 
     renderer.render( scene, camera );
 
