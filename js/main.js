@@ -19,7 +19,7 @@ function createMaterialArray(filename) {
     const daylightBoxPaths = createPathStrings(filename);
     const materialArray = daylightBoxPaths.map(image => {
         let texture = new THREE.TextureLoader().load(image);
-        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+        return new THREE.MeshLambertMaterial({ map: texture, side: THREE.BackSide });
     });
 
     return materialArray;
@@ -29,7 +29,7 @@ function createMaterialArray2(filename) {
     const daylightBoxPaths = createPathStrings(filename);
     const materialArray = daylightBoxPaths.map(image => {
         let texture = new THREE.TextureLoader().load(image);
-        return new THREE.MeshBasicMaterial({ map: texture });
+        return new THREE.MeshLambertMaterial({ map: texture });
     });
 
     return materialArray;
@@ -61,6 +61,11 @@ function init() {
         camera.aspect = width/height;
         camera.updateProjectionMatrix;
     });
+
+    // Lighting
+    var light = new THREE.PointLight( 0xffffff, 1, 100 );
+    light.position.set( 50, 50, 50 );
+    scene.add( light );
 
     // Ocean
     const oceanGeometry = new THREE.PlaneGeometry( 200, 200 );
@@ -96,7 +101,7 @@ function init() {
     // Clouds
     for (let i = 0; i < 15; i++) {
         const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x += 20 + (Math.random() * 9);
         cloud.position.y += 40 + (Math.random() * 2); 
@@ -105,7 +110,7 @@ function init() {
 
     for (let i = 0; i < 15; i++) {
         const cloudGeo = new THREE.SphereGeometry(25 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x += 50 + ( Math.random() * 4);
         cloud.position.y += 35 + (Math.random() * 2); 
@@ -115,7 +120,7 @@ function init() {
 
     for (let i = 0; i < 20; i++) {
         const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x += -30 + (2 *  Math.random() * 5);
         cloud.position.y += 55 + (2 * Math.random() * 2.5); 
@@ -125,7 +130,7 @@ function init() {
 
     for (let i = 0; i < 15; i++) {
         const cloudGeo = new THREE.SphereGeometry(35 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x += -15 + (2 *  Math.random() * 5);
         cloud.position.y += 25 + (2 * Math.random() * 2.5); 
@@ -135,7 +140,7 @@ function init() {
 
     for (let i = 0; i < 30; i++) {
         const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x -= 40 + (2 *  Math.random() * 5);
         cloud.position.y += 30 + (2 * Math.random() * 2.5); 
@@ -145,7 +150,7 @@ function init() {
 
     for (let i = 0; i < 20; i++) {
         const cloudGeo = new THREE.SphereGeometry(50 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x -= 50 + (2 *  Math.random() * 5);
         cloud.position.y += 30 + (2* Math.random() * 2.5); 
@@ -155,7 +160,7 @@ function init() {
 
     for (let i = 0; i < 15; i++) {
         const cloudGeo = new THREE.SphereGeometry(40 * Math.random() * 0.1, 32, 16);
-        const cloudMaterial = new THREE.MeshBasicMaterial({color: 0xFAF9F6});
+        const cloudMaterial = new THREE.MeshLambertMaterial({color: 0xFAF9F6});
         const cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
         cloud.position.x += 10 + (2 *  Math.random() * 5);
         cloud.position.y += 20 + (2 * Math.random() * 2.5); 
@@ -168,7 +173,7 @@ function init() {
     const geometryBeach = new THREE.PlaneBufferGeometry(125,130);
     geometryBeach.rotateX(4.7);
     const textureBeach = new THREE.TextureLoader();
-    const materialBeach = new THREE.MeshBasicMaterial( {map: textureBeach.load("textures/mSand_Alb.png")} );
+    const materialBeach = new THREE.MeshLambertMaterial( {map: textureBeach.load("textures/mSand_Alb.png")} );
     //const texture = new THREE.TextureLoader().load('textures/grass.png');
     //const material = new THREE.MeshBasicMaterial( {map: texture} );
     const beach = new THREE.Mesh( geometryBeach, materialBeach );
@@ -185,7 +190,7 @@ function init() {
     // Rock - Change to MeshStandard if needed for light
     const geometryRock = new THREE.DodecahedronGeometry(10, 0);
     const textureRock = new THREE.TextureLoader();
-    const materialRock = new THREE.MeshBasicMaterial({map: textureRock.load("textures/mbody_alb.png")});
+    const materialRock = new THREE.MeshLambertMaterial({map: textureRock.load("textures/mbody_alb.png")});
                                                         //normalMap: textureRock.load("textures/mbody_nrm.png"),
                                                         //roughnessMap:textureRock.load("textures/Rough_Rock_023_ROUGH.jpg"),
                                                         //roughness: 0.5,
@@ -216,7 +221,7 @@ function init() {
     textureGrass.wrapS = textureGrass.wrapT = THREE.RepeatWrapping; 
 	textureGrass.repeat.set( 10, 10 );
     //const materialGrass = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
-    const materialPlane = new THREE.MeshBasicMaterial( {map: textureGrass});
+    const materialPlane = new THREE.MeshLambertMaterial( {map: textureGrass});
     const floor = new THREE.Mesh( geometryPlane, materialPlane );
 	floor.material.side = THREE.DoubleSide;
     floor.position.x = beach.position.x + 14;
@@ -259,7 +264,7 @@ function init() {
     // Fossil Hole
     const geometryFossilHole = new THREE.CircleGeometry(2, 24);
     const textureFossilHole = new THREE.TextureLoader();
-    const materialFossilHole = new THREE.MeshBasicMaterial({map: textureFossilHole.load("textures/muniticonholeoff_alb.png")});
+    const materialFossilHole = new THREE.MeshLambertMaterial({map: textureFossilHole.load("textures/muniticonholeoff_alb.png")});
     const fossilHole = new THREE.Mesh(geometryFossilHole, materialFossilHole);
     fossilHole.position.x = 20;
     fossilHole.position.y = 0.55;
@@ -271,7 +276,7 @@ function init() {
     // Camping tent
     const geometryTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
     const textureTent = new THREE.TextureLoader();
-    const materialTent = new THREE.MeshBasicMaterial({map: textureTent.load("textures/mDoortent_Alb.png")});
+    const materialTent = new THREE.MeshLambertMaterial({map: textureTent.load("textures/mDoortent_Alb.png")});
     pyramid = new THREE.Mesh(geometryTent, materialTent);
     pyramid.position.x -= 10;
     pyramid.position.z -= 30;
@@ -280,7 +285,7 @@ function init() {
 
     // Open tent
     const geometryDoorTent = new THREE.CylinderGeometry(0, 8, 10, 4, 0);
-    const materialDoorTent = new THREE.MeshBasicMaterial({color: 0x000000});
+    const materialDoorTent = new THREE.MeshLambertMaterial({color: 0x000000});
     doorTent = new THREE.Mesh(geometryDoorTent, materialDoorTent);
     doorTent.position.x -= 10;
     doorTent.position.z -= 27.5;
@@ -292,7 +297,7 @@ function init() {
     //Choza Dock Right = CDR
     const geometryCDR = new THREE.BoxGeometry( 10, 10, 1 ); 
     const textureCDR = new THREE.TextureLoader();
-    const materialCDR = new THREE.MeshBasicMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
+    const materialCDR = new THREE.MeshLambertMaterial({map: textureCDR.load("textures/DockBluePaint.jpg")});
     const cubeCDR = new THREE.Mesh( geometryCDR, materialCDR );
     cubeCDR.position.x += -50;
     cubeCDR.position.y += 5;
@@ -302,7 +307,7 @@ function init() {
     //Choza Dock  = CD
     const geometryCD = new THREE.BoxGeometry( 10, 1, 10 ); 
     const textureCD = new THREE.TextureLoader();
-    const materialCD = new THREE.MeshBasicMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
+    const materialCD = new THREE.MeshLambertMaterial({map: textureCD.load("textures/DockBluePaint.jpg")});
     const cubeCD = new THREE.Mesh( geometryCD, materialCD );
     cubeCD.position.x = cubeCDR.position.x;
     cubeCD.position.y = cubeCDR.position.y - 4.5;
@@ -312,7 +317,7 @@ function init() {
     //Choza Dock Up = CDU
     const geometryCDU = new THREE.BoxGeometry( 9.5, 1, 9.3 ); 
     const textureCDU = new THREE.TextureLoader();
-    const materialCDU = new THREE.MeshBasicMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
+    const materialCDU = new THREE.MeshLambertMaterial({map: textureCDU.load("textures/DockWhitePaint.jpg")});
     const cubeCDU = new THREE.Mesh( geometryCDU, materialCDU );
     cubeCDU.position.x = cubeCDR.position.x;
     cubeCDU.position.y = cubeCDR.position.y + 4.5;
@@ -322,7 +327,7 @@ function init() {
     //Choza Dock Viewer = CDV
     const geometryCDV = new THREE.BoxGeometry( 3, 2, 4 ); 
     const textureCDV = new THREE.TextureLoader();
-    const materialCDV = new THREE.MeshBasicMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
+    const materialCDV = new THREE.MeshLambertMaterial({map: textureCDV.load("textures/DockBluePaint.jpg")});
     const cubeCDV = new THREE.Mesh( geometryCDV, materialCDV );
     cubeCDV.position.x = cubeCDR.position.x -2;
     cubeCDV.position.y = cubeCDR.position.y + 5.5;
@@ -332,7 +337,7 @@ function init() {
     //Choza Dock Viewer Cylinder = CDVC
     const geometryCDVC = new THREE.CylinderGeometry( 4, 2, 2, 4 );
     const textureCDVC = new THREE.TextureLoader();
-    const materialCDVC = new THREE.MeshBasicMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
+    const materialCDVC = new THREE.MeshLambertMaterial({map: textureCDVC.load("textures/DockBluePaint.jpg")});
     const cylinderCDVC = new THREE.Mesh( geometryCDVC, materialCDVC );
     cylinderCDVC.position.x = cubeCDR.position.x -2;
     cylinderCDVC.position.y = cubeCDR.position.y + 6;
@@ -343,7 +348,7 @@ function init() {
     //Choza Dock Left  = CDL
     const geometryCDL = new THREE.BoxGeometry( 7, 10, 1 ); 
     const textureCDL = new THREE.TextureLoader();
-    const materialCDL = new THREE.MeshBasicMaterial({map: textureCDL.load("textures/DockBluePaint.jpg")});
+    const materialCDL = new THREE.MeshLambertMaterial({map: textureCDL.load("textures/DockBluePaint.jpg")});
     const cubeCDL = new THREE.Mesh( geometryCDL, materialCDL );
     cubeCDL.position.x = cubeCDR.position.x + 1.5;
     cubeCDL.position.y = cubeCDR.position.y;
@@ -353,7 +358,7 @@ function init() {
     //Choza Dock Back = CDB
     const geometryCDB = new THREE.BoxGeometry( 1, 10, 10 ); 
     const textureCDB = new THREE.TextureLoader();
-    const materialCDB = new THREE.MeshBasicMaterial({map: textureCDB.load("textures/DockBluePaint.jpg")});
+    const materialCDB = new THREE.MeshLambertMaterial({map: textureCDB.load("textures/DockBluePaint.jpg")});
     const cubeCDB = new THREE.Mesh( geometryCDB, materialCDB );
     cubeCDB.position.x = cubeCDR.position.x + 4.5;
     cubeCDB.position.y = cubeCDR.position.y;
@@ -363,7 +368,7 @@ function init() {
     //Choza Dock Front = CDF
     const geometryCDF = new THREE.BoxGeometry( 1, 10, 7 ); 
     const textureCDF = new THREE.TextureLoader();
-    const materialCDF = new THREE.MeshBasicMaterial({map: textureCDF.load("textures/DockBluePaint.jpg")});
+    const materialCDF = new THREE.MeshLambertMaterial({map: textureCDF.load("textures/DockBluePaint.jpg")});
     const cubeCDF = new THREE.Mesh( geometryCDF, materialCDF );
     cubeCDF.position.x = cubeCDR.position.x - 5;
     cubeCDF.position.y = cubeCDR.position.y;
@@ -373,7 +378,7 @@ function init() {
     //Ventana Dock Front= VDF
     const geometryVDF = new THREE.BoxGeometry( 1, 3, 2 ); 
     const textureVDF = new THREE.TextureLoader();
-    const materialVDF = new THREE.MeshBasicMaterial({map: textureVDF.load("textures/Window.jpg")});
+    const materialVDF = new THREE.MeshLambertMaterial({map: textureVDF.load("textures/Window.jpg")});
     const cubeVDF = new THREE.Mesh( geometryVDF, materialVDF );
     cubeVDF.position.x = cubeCDR.position.x - 5.5;
     cubeVDF.position.y = cubeCDR.position.y;
@@ -383,7 +388,7 @@ function init() {
     //Ventana Dock Left= VDL
     const geometryVDL = new THREE.BoxGeometry( 2, 3, 1 ); 
     const textureVDL = new THREE.TextureLoader();
-    const materialVDL = new THREE.MeshBasicMaterial({map: textureVDL.load("textures/Window.jpg")});
+    const materialVDL = new THREE.MeshLambertMaterial({map: textureVDL.load("textures/Window.jpg")});
     const cubeVDL = new THREE.Mesh( geometryVDL, materialVDL );
     cubeVDL.position.x = cubeCDR.position.x;
     cubeVDL.position.y = cubeCDR.position.y;
@@ -393,7 +398,7 @@ function init() {
     //Body Front = BF
     const geometryBF = new THREE.CylinderGeometry( 3, 1, 3, 32 );
     const textureBF = new THREE.TextureLoader();
-    const materialBF = new THREE.MeshBasicMaterial({map: textureBF.load("textures/PlaneBluePaint.jpg")});
+    const materialBF = new THREE.MeshLambertMaterial({map: textureBF.load("textures/PlaneBluePaint.jpg")});
     const cylinderBF = new THREE.Mesh( geometryBF, materialBF );
     cylinderBF.position.x += -65;
     cylinderBF.position.y += 5;
@@ -405,7 +410,7 @@ function init() {
     //Body Head = BH
     const geometryBH = new THREE.SphereGeometry( 1, 32, 16 );
     const textureHeadBH = new THREE.TextureLoader();
-    const materialBH = new THREE.MeshBasicMaterial({map: textureHeadBH.load("textures/PlaneAce.jpg")});
+    const materialBH = new THREE.MeshLambertMaterial({map: textureHeadBH.load("textures/PlaneAce.jpg")});
     const headPlane = new THREE.Mesh( geometryBH, materialBH );
     headPlane.position.x = cylinderBF.position.x;
     headPlane.position.y = cylinderBF.position.y;
@@ -416,7 +421,7 @@ function init() {
     const geometryBHA1 = new THREE.BoxGeometry( 6, 0.8, 0.1); 
     //const materialBHA1 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
     const textureHeadAce1 = new THREE.TextureLoader();
-    const materialAce1 = new THREE.MeshBasicMaterial({map: textureHeadAce1.load("textures/PlaneAce.jpg")});
+    const materialAce1 = new THREE.MeshLambertMaterial({map: textureHeadAce1.load("textures/PlaneAce.jpg")});
     const cubeBHA1 = new THREE.Mesh( geometryBHA1, materialAce1 );
     cubeBHA1.position.x = headPlane.position.x;
     cubeBHA1.position.y = headPlane.position.y;
@@ -426,7 +431,7 @@ function init() {
     //Body Head Ace 2= BHA2
     const geometryBHA2 = new THREE.BoxGeometry( 0.8, 6, 0.1); 
     const textureHeadAce2 = new THREE.TextureLoader();
-    const materialAce2 = new THREE.MeshBasicMaterial({map: textureHeadAce2.load("textures/PlaneAce.jpg")});
+    const materialAce2 = new THREE.MeshLambertMaterial({map: textureHeadAce2.load("textures/PlaneAce.jpg")});
     const cubeBHA2 = new THREE.Mesh( geometryBHA2, materialAce2 );
     cubeBHA2.position.x = headPlane.position.x;
     cubeBHA2.position.y = headPlane.position.y;
@@ -436,7 +441,7 @@ function init() {
     //Body plane = BP
     const geometryBP = new THREE.CylinderGeometry( 3, 3, 7, 32 );
     const textureBP = new THREE.TextureLoader();
-    const materialBP = new THREE.MeshBasicMaterial({map: textureBP.load("textures/PlaneBluePaint.jpg")});
+    const materialBP = new THREE.MeshLambertMaterial({map: textureBP.load("textures/PlaneBluePaint.jpg")});
     const cylinderBP = new THREE.Mesh( geometryBP, materialBP );
     cylinderBP.position.x = cylinderBF.position.x;
     cylinderBP.position.y = cylinderBF.position.y;
@@ -448,7 +453,7 @@ function init() {
     //Tail Main Plane = TMP
     const geometryTMP = new THREE.BoxGeometry( 0.1, 7, 3 ); 
     const textureTMP = new THREE.TextureLoader();
-    const materialTMP = new THREE.MeshBasicMaterial({map: textureTMP.load("textures/PlaneStand.jpg")});
+    const materialTMP = new THREE.MeshLambertMaterial({map: textureTMP.load("textures/PlaneStand.jpg")});
     const cubeTMP = new THREE.Mesh( geometryTMP, materialTMP );
     cubeTMP.position.x = cylinderBF.position.x;
     cubeTMP.position.y += cylinderBF.position.y + 2;
@@ -458,7 +463,7 @@ function init() {
     //Tail Side Plane = TSP
     const geometryTSP = new THREE.BoxGeometry( 7, 0.1, 3 ); 
     const textureTSP = new THREE.TextureLoader();
-    const materialTSP = new THREE.MeshBasicMaterial({map: textureTSP.load("textures/PlaneStand.jpg")});
+    const materialTSP = new THREE.MeshLambertMaterial({map: textureTSP.load("textures/PlaneStand.jpg")});
     const cubeTSP = new THREE.Mesh( geometryTSP, materialTSP );
     cubeTSP.position.x = cubeTMP.position.x;
     cubeTSP.position.y = cubeTMP.position.y - 3;
@@ -468,7 +473,7 @@ function init() {
     //Wing Plane = WP
     const geometryWP = new THREE.BoxGeometry( 10, 0.1, 3 ); 
     const textureWP = new THREE.TextureLoader();
-    const materialWP = new THREE.MeshBasicMaterial({map: textureWP.load("textures/PlaneStand.jpg")});
+    const materialWP = new THREE.MeshLambertMaterial({map: textureWP.load("textures/PlaneStand.jpg")});
     const cubeWP = new THREE.Mesh( geometryWP, materialWP );
     cubeWP.position.x = cylinderBF.position.x;
     cubeWP.position.y = cylinderBF.position.y + 1;
@@ -478,7 +483,7 @@ function init() {
     //Right Foot Plane = RFP
     const geometryRFP = new THREE.BoxGeometry( 2, 1, 10 ); 
     const textureRFP = new THREE.TextureLoader();
-    const materialRFP = new THREE.MeshBasicMaterial({map: textureRFP.load("textures/PlaneBluePaint.jpg")});
+    const materialRFP = new THREE.MeshLambertMaterial({map: textureRFP.load("textures/PlaneBluePaint.jpg")});
     const cubeRFP= new THREE.Mesh( geometryRFP, materialRFP );
     cubeRFP.position.x = cylinderBF.position.x + 2;
     cubeRFP.position.y = cylinderBF.position.y - 4;
@@ -488,7 +493,7 @@ function init() {
     //Right Foot Tube Plane = RFTP
     const geometryRFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
     const textureRTFP = new THREE.TextureLoader();
-    const materialRFTP = new THREE.MeshBasicMaterial({map: textureRTFP.load("textures/PlaneStand.jpg")});
+    const materialRFTP = new THREE.MeshLambertMaterial({map: textureRTFP.load("textures/PlaneStand.jpg")});
     const CubeRFTP = new THREE.Mesh(geometryRFTP, materialRFTP);
     CubeRFTP.position.y = cubeRFP.position.y + 1;
     CubeRFTP.position.x = cubeRFP.position.x;
@@ -499,7 +504,7 @@ function init() {
     //Left Foot Plane = LFP
     const geometryLFP = new THREE.BoxGeometry( 2, 1, 10 ); 
     const textureLFP = new THREE.TextureLoader();
-    const materialLFP = new THREE.MeshBasicMaterial({map: textureLFP.load("textures/PlaneBluePaint.jpg")});
+    const materialLFP = new THREE.MeshLambertMaterial({map: textureLFP.load("textures/PlaneBluePaint.jpg")});
     const cubeLFP= new THREE.Mesh( geometryLFP, materialLFP );
     cubeLFP.position.x = cylinderBF.position.x - 2;
     cubeLFP.position.y = cylinderBF.position.y - 4;
@@ -509,7 +514,7 @@ function init() {
     //Left Foot Tube Plane = LFTP
     const geometryLFTP = new THREE.CylinderGeometry(0.25, 0.25, 2, 14);
     const textureLTFP = new THREE.TextureLoader();
-    const materialLFTP = new THREE.MeshBasicMaterial({map: textureLTFP.load("textures/PlaneStand.jpg")});
+    const materialLFTP = new THREE.MeshLambertMaterial({map: textureLTFP.load("textures/PlaneStand.jpg")});
     const CubeLFTP = new THREE.Mesh(geometryLFTP, materialLFTP);
     CubeLFTP.position.y = cubeLFP.position.y + 1;
     CubeLFTP.position.x = cubeLFP.position.x;
@@ -520,7 +525,7 @@ function init() {
     // Trunk
     const trunkGeometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
     const textureTrunk = new THREE.TextureLoader().load("textures/Bark.jpg");
-    const trunkMaterial = new THREE.MeshBasicMaterial( { map: textureTrunk} );
+    const trunkMaterial = new THREE.MeshLambertMaterial( { map: textureTrunk} );
     const trunkCylinder = new THREE.Mesh( trunkGeometry, trunkMaterial );
     trunkCylinder.position.x += 3;
     trunkCylinder.position.y += 4.5;
@@ -530,7 +535,7 @@ function init() {
     // Leafs Left
     const sLGeometry = new THREE.SphereGeometry( 3, 32, 16 );
     const textureLeafLeft = new THREE.TextureLoader().load("textures/LeafLeft.jpg");
-    const sLMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
+    const sLMaterial = new THREE.MeshLambertMaterial( { map: textureLeafLeft } );
     const lEsfera = new THREE.Mesh( sLGeometry, sLMaterial );
     lEsfera.position.x += 3;
     lEsfera.position.y += 8;
@@ -539,7 +544,7 @@ function init() {
 
     // Leafs Mid
     const sMGeometry = new THREE.SphereGeometry( 3, 32, 16 );
-    const sMMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
+    const sMMaterial = new THREE.MeshLambertMaterial( { map: textureLeafLeft } );
     const mEsfera = new THREE.Mesh( sMGeometry, sMMaterial );
     mEsfera.position.x += 3;
     mEsfera.position.y += 9;
@@ -548,7 +553,7 @@ function init() {
 
     // Leafs Right
     const sRGeometry = new THREE.SphereGeometry( 3, 32, 16 );
-    const sRMaterial = new THREE.MeshBasicMaterial( { map: textureLeafLeft } );
+    const sRMaterial = new THREE.MeshLambertMaterial( { map: textureLeafLeft } );
     const rEsfera = new THREE.Mesh( sRGeometry, sRMaterial );
     rEsfera.position.x += 3;
     rEsfera.position.y += 8;
@@ -643,14 +648,14 @@ function init() {
     // Head
     const geometryHead = new THREE.SphereGeometry( 1, 32, 16 );
     const textureHead = new THREE.TextureLoader().load("textures/Head.jpg");
-    const materialHead = new THREE.MeshBasicMaterial( { map: textureHead } );
+    const materialHead = new THREE.MeshLambertMaterial( { map: textureHead } );
     const head = new THREE.Mesh( geometryHead, materialHead );
     head.position.y = 5;
     head.position.x = -3;
     
     //Hair
     const geometryHair = new THREE.SphereGeometry(0.3, 32, 16);
-    const materialHair = new THREE.MeshBasicMaterial( {color: 0x6b4d3c });
+    const materialHair = new THREE.MeshLambertMaterial( {color: 0x6b4d3c });
     const hair1 = new THREE.Mesh( geometryHair, materialHair );
     hair1.position.y = head.position.y + 0.7;
     hair1.position.x = head.position.x + 0.7;
@@ -660,7 +665,7 @@ function init() {
 
     // Neck
     const geometryNeck = new THREE.CylinderGeometry( 0.3, 0.3, 0.3, 14 );
-    const materialNeck = new THREE.MeshBasicMaterial( {color: 0xf8b890} );
+    const materialNeck = new THREE.MeshLambertMaterial( {color: 0xf8b890} );
     const neck = new THREE.Mesh( geometryNeck, materialNeck );
     neck.position.y = head.position.y - 1;
     neck.position.x = head.position.x;
@@ -668,7 +673,7 @@ function init() {
     // Body
     const geometryBody = new THREE.CylinderGeometry( 0.3, 0.8, 2.2, 14 );
     const textureBody = new THREE.TextureLoader().load("textures/Body.jpg");
-    const materialBody = new THREE.MeshBasicMaterial( { map: textureBody } );
+    const materialBody = new THREE.MeshLambertMaterial( { map: textureBody } );
     const body = new THREE.Mesh( geometryBody, materialBody );
     body.position.y = neck.position.y - 1.2;
     body.position.x = neck.position.x;
@@ -676,7 +681,7 @@ function init() {
 
     // Right Arm
     const geometryArm = new THREE.CylinderGeometry(0.15, 0.15, 1.5, 14);
-    const materialArm = new THREE.MeshBasicMaterial({ color: 0xf8b890 });
+    const materialArm = new THREE.MeshLambertMaterial({ color: 0xf8b890 });
     const rightArm = new THREE.Mesh(geometryArm, materialArm);
     rightArm.position.y = body.position.y + 0.5;
     rightArm.position.x = body.position.x + 0.5;
@@ -684,7 +689,7 @@ function init() {
 
     // Right Hand
     const geometryHand = new THREE.SphereGeometry(0.3, 32, 16);
-    const materialHand = new THREE.MeshBasicMaterial( { color: 0xf8b890} );
+    const materialHand = new THREE.MeshLambertMaterial( { color: 0xf8b890} );
     const rightHand = new THREE.Mesh(geometryHand, materialHand);
     rightHand.position.y = rightArm.position.y - 0.5;
     rightHand.position.x = rightArm.position.x + 0.5;
@@ -702,7 +707,7 @@ function init() {
 
     //Right Leg
     const geometryLeg = new THREE.CylinderGeometry(0.15, 0.15, 1.6, 14);
-    const materialLeg = new THREE.MeshBasicMaterial( { color: 0xf8b890 } );
+    const materialLeg = new THREE.MeshLambertMaterial( { color: 0xf8b890 } );
     const rightLeg = new THREE.Mesh(geometryLeg, materialLeg);
     rightLeg.position.y = body.position.y - 1.5;
     rightLeg.position.x = body.position.x + 0.3;
@@ -746,7 +751,7 @@ function init() {
     // GiftBox
     const giftBoxGeo = new THREE.BoxGeometry();
     const giftTexture = new THREE.TextureLoader();
-    const materialGiftBox = new THREE.MeshBasicMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
+    const materialGiftBox = new THREE.MeshLambertMaterial({ map: giftTexture.load("textures/paper_0010_base_color_2k.jpg")});
     const giftBox = new THREE.Mesh(giftBoxGeo, materialGiftBox);
     giftBox.position.y += 10;
 	scene.add(giftBox);
@@ -815,7 +820,7 @@ function init() {
     // Chimney 
     const geometryChimney = new THREE.BoxGeometry(2,4,2);
     const textureChimney = new THREE.TextureLoader().load("textures/Chimney.jpg");
-    const materialChimney = new THREE.MeshBasicMaterial( { map: textureChimney } );
+    const materialChimney = new THREE.MeshLambertMaterial( { map: textureChimney } );
     const chimney = new THREE.Mesh(geometryChimney, materialChimney);
     chimney.position.x = house.position.x;
     chimney.position.y = house.position.y + 9;
@@ -825,7 +830,7 @@ function init() {
     // Mailbox
     const geometryStickMail = new THREE.BoxGeometry(0.5,3,0.5);
     const textureStickMailbox = new THREE.TextureLoader().load("textures/StickMailbox.jpg");
-    const materialStickMailbox = new THREE.MeshBasicMaterial( {map: textureStickMailbox } );
+    const materialStickMailbox = new THREE.MeshLambertMaterial( {map: textureStickMailbox } );
     const stickMail = new THREE.Mesh(geometryStickMail, materialStickMailbox);
     stickMail.position.x = house.position.x - 9;
     stickMail.position.y += 2.5;
@@ -844,7 +849,7 @@ function init() {
     // Table 
     const geometryTable = new THREE.CylinderGeometry(5,5,1,32);
     const textureTable = new THREE.TextureLoader().load("textures/Wood.jpg");
-    const materialTable = new THREE.MeshBasicMaterial( { map: textureTable });
+    const materialTable = new THREE.MeshLambertMaterial( { map: textureTable });
     const table = new THREE.Mesh(geometryTable, materialTable);
     table.position.x -= 2;
     table.position.y = floor.position.y + 3;
@@ -862,7 +867,7 @@ function init() {
     // Chair 1 for table
     const geometryChair = new THREE.CylinderGeometry(2,2,2,32);
     const textureChair = new THREE.TextureLoader().load("textures/Chair.jpg");
-    const materialChair = new THREE.MeshBasicMaterial( { map: textureChair });
+    const materialChair = new THREE.MeshLambertMaterial( { map: textureChair });
     const chair1 = new THREE.Mesh(geometryChair, materialChair);
     chair1.position.x = table.position.x;
     chair1.position.y = floor.position.y + 1.5;
@@ -880,7 +885,7 @@ function init() {
     // Leg1
     const geometryPierShortLeg = new THREE.CylinderGeometry(1,1, 2, 32);
     const texturePier = new THREE.TextureLoader();
-    const materialPierLeg = new THREE.MeshBasicMaterial({map: texturePier.load("textures/GameCube - Animal Crossing - Wallpaper.png")});
+    const materialPierLeg = new THREE.MeshLambertMaterial({map: texturePier.load("textures/GameCube - Animal Crossing - Wallpaper.png")});
     const leg1 = new THREE.Mesh(geometryPierShortLeg, materialPierLeg);
     leg1.position.x = 10;
     leg1.position.y = 0;
@@ -914,7 +919,7 @@ function init() {
     const geometryPier = new THREE.BoxGeometry(10, 20, 1);
     geometryPier.rotateX(4.7);
     const deckPierTexture = new THREE.TextureLoader();
-    const materialPier = new THREE.MeshBasicMaterial({map: deckPierTexture.load("textures/GameCube - Animal Crossing - Wallpaper.png") });
+    const materialPier = new THREE.MeshLambertMaterial({map: deckPierTexture.load("textures/GameCube - Animal Crossing - Wallpaper.png") });
     const pier = new THREE.Mesh(geometryPier, materialPier);
     pier.position.x = 13.5;
     pier.position.y = 1;
